@@ -45,7 +45,7 @@ public class UserController {
      */
     @GetMapping("/{id}")
     public AjaxResult queryById(@PathVariable("id") Integer id) {
-        return AjaxResult.querySuccess(this.userService.queryById(id));
+        return null;
     }
 
     /**
