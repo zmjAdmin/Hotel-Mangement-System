@@ -1,0 +1,118 @@
+##定义初始变量
+#set($tableName = $tool.append($tableInfo.name, "Controller"))
+#set($resultPackage = $tool.append($!{tableInfo.savePackageName}, ".common.utils.web"))
+#set($pageNumName = "page")
+#set($pageSizeName = "pageSize")
+##设置回调
+$!callback.setFileName($tool.append($tableName, ".java"))
+$!callback.setSavePath($tool.append($tableInfo.savePath, "/controller"))
+##拿到主键
+#if(!$tableInfo.pkColumn.isEmpty())
+    #set($pk = $tableInfo.pkColumn.get(0))
+#end
+#set($IdArr = $tool.append($!pk.shortType, "[]"))
+#if($tableInfo.savePackageName)package $!{tableInfo.savePackageName}.#{end}controller;
+
+import $!{tableInfo.savePackageName}.entity.$!{tableInfo.name};
+import $!{tableInfo.savePackageName}.service.$!{tableInfo.name}Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import $!{resultPackage}.AjaxResult;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
+
+/**
+ * $!{tableInfo.comment}($!{tableInfo.name})控制层
+ *
+ * @author $!author
+ * @since $!time.currTime()
+ */
+@RestController
+@RequestMapping("$!tool.firstLowerCase($tableInfo.name)")
+public class $!{tableName} {
+
+/**
+ * 服务对象
+ */
+@Autowired
+private $!{tableInfo.name}Service $!tool.firstLowerCase($tableInfo.name)Service;
+
+/**
+ * 分页查询
+ *
+ * @param $!{tool.firstLowerCase($tableInfo.name)} 筛选条件
+ * @param $pageNumName 当前页
+ * @param $pageSizeName 每页的条数
+ * @return 查询结果
+ */
+@GetMapping("/{$pageNumName}/{$pageSizeName}")
+public AjaxResult queryByPage(@RequestParam $!{tableInfo.name} $!{tool.firstLowerCase($tableInfo.name)},@PathVariable("$pageNumName") Integer $pageNumName,@PathVariable("$pageSizeName") Integer $pageSizeName){
+        return AjaxResult.querySuccess(this.$!{tool.firstLowerCase($tableInfo.name)}Service.queryByPage($!{tool.firstLowerCase($tableInfo.name)}, $pageNumName, $pageSizeName));
+        }
+
+/**
+ * 通过主键查询单条数据
+ *
+ * @param id 主键
+ * @return 单条数据
+ */
+@GetMapping("/{id}")
+public AjaxResult queryById(@PathVariable("id") $!pk.shortType id){
+        return AjaxResult.querySuccess(this.$!{tool.firstLowerCase($tableInfo.name)}Service.queryById(id));
+        }
+
+/**
+ * 插入一条数据
+ *
+ * @param $!{tool.firstLowerCase($tableInfo.name)} 实体
+ * @return 插入结果
+ */
+@PostMapping
+public AjaxResult insert(@RequestBody $!{tableInfo.name} $!{tool.firstLowerCase($tableInfo.name)}){
+        return AjaxResult.insertSuccess(this.$!{tool.firstLowerCase($tableInfo.name)}Service.insert($!{tool.firstLowerCase($tableInfo.name)}));
+        }
+
+/**
+ * 批量插入数据
+ *
+ * @param $!{tool.firstLowerCase($tableInfo.name)}List 实体列表
+ * @return 插入结果
+ */
+@PostMapping
+public AjaxResult batchInsert(@RequestBody List<$!{tableInfo.name}> $!{tool.firstLowerCase($tableInfo.name)}List){
+        return AjaxResult.insertSuccess(this.$!{tool.firstLowerCase($tableInfo.name)}Service.batchInsert($!{tool.firstLowerCase($tableInfo.name)}List));
+        }
+
+/**
+ * 通过主键修改数据
+ *
+ * @param $!{tool.firstLowerCase($tableInfo.name)} 实体
+ * @return 修改结果
+ */
+@PutMapping
+public AjaxResult update(@RequestBody $!{tableInfo.name} $!{tool.firstLowerCase($tableInfo.name)}){
+        return AjaxResult.updateSuccess(this.$!{tool.firstLowerCase($tableInfo.name)}Service.update($!{tool.firstLowerCase($tableInfo.name)}));
+        }
+
+/**
+ * 通过主键删除数据
+ *
+ * @param id 主键
+ * @return 删除结果
+ */
+@DeleteMapping("/{id}")
+public AjaxResult deleteById(@PathVariable("id") $!pk.shortType id){
+        return AjaxResult.deleteSuccess(this.$!{tool.firstLowerCase($tableInfo.name)}Service.deleteById(id));
+        }
+
+/**
+* 通过主键批量删除数据
+*
+* @param ids 主键数组
+* @return 删除结果
+*/
+@DeleteMapping
+public AjaxResult batchDelete(@RequestBody $!IdArr ids){
+        return AjaxResult.deleteSuccess(this.$!{tool.firstLowerCase($tableInfo.name)}Service.batchDelete(ids));
+        }
+
+        }
