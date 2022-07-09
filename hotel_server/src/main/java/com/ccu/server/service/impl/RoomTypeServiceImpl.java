@@ -33,6 +33,9 @@ public class RoomTypeServiceImpl implements RoomTypeService {
      */
     @Override
     public PageEntity<RoomType> queryByPage(RoomType roomType, Integer page, Integer pageSize) {
+        //如果当前用户为超级管理员，查找所有房间类型
+        //如果当前用户为普通前台用户，只查找未删除的房间类型
+        roomType.setRoomTypeDel(0);
         PageHelper.startPage(page, pageSize);
         PageInfo<RoomType> pageInfo = new PageInfo<>(this.roomTypeDao.queryAll(roomType));
         return new PageEntity<RoomType>(pageInfo.getList(), (long) pageInfo.getPageNum(), pageInfo.getTotal());
@@ -94,7 +97,13 @@ public class RoomTypeServiceImpl implements RoomTypeService {
      */
     @Override
     public Integer deleteById(Integer id) {
-        return this.roomTypeDao.deleteById(id);
+        //如果当前用户为超级管理员，直接删除
+        //return this.roomTypeDao.deleteById(id);
+        //如果当前用户为普通前台用户，调用更新，进行逻辑删除
+        RoomType roomType = new RoomType();
+        roomType.setRoomTypeId(id);
+        roomType.setRoomTypeDel(1);
+        return this.update(roomType);
     }
 
     /**
