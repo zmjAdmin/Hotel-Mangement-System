@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccu.server.dao.VipDao">
+
+    <resultMap type="com.ccu.server.entity.Vip" id="VipMap">
+        <result property="vipId" column="vip_id" jdbcType="INTEGER"/>
+        <result property="guestId" column="guest_id" jdbcType="INTEGER"/>
+        <result property="vipCard" column="vip_card" jdbcType="VARCHAR"/>
+        <result property="vipIntegral" column="vip_integral" jdbcType="INTEGER"/>
+        <result property="vipDel" column="vip_del" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询所有字段-->
+    <sql id="queryAllColumn">
+        select `guest_id`,
+               `vip_card`,
+               `vip_integral`,
+               `vip_del`
+        from hotel2.vip
+    </sql>
+
+    <!--所有的where条件-->
+    <sql id="whereAll">
+        <where>
+            <if test="vipId != null">
+                and vip_id = #{vipId}
+            </if>
+            <if test="guestId != null">
+                and guest_id = #{guestId}
+            </if>
+            <if test="vipCard != null and vipCard != ''">
+                and vip_card = #{vipCard}
+            </if>
+            <if test="vipIntegral != null">
+                and vip_integral = #{vipIntegral}
+            </if>
+            <if test="vipDel != null">
+                and vip_del = #{vipDel}
+            </if>
+        </where>
+    </sql>
+
+    <!--除主键外所有set条件-->
+    <sql id="setAll">
+        <set>
+            <if test="guestId != null">
+                guest_id = #{guestId},
+            </if>
+            <if test="vipCard != null and vipCard != ''">
+                vip_card = #{vipCard},
+            </if>
+            <if test="vipIntegral != null">
+                vip_integral = #{vipIntegral},
+            </if>
+            <if test="vipDel != null">
+                vip_del = #{vipDel},
+            </if>
+        </set>
+    </sql>
+
+    <!--查询所有数据-->
+    <select id="queryAll" resultMap="VipMap">
+        <include refid="queryAllColumn"/>
+        <include refid="whereAll"/>
+    </select>
+
+    <!--通过主键查询单条数据-->
+    <select id="queryById" resultMap="VipMap">
+        <include refid="queryAllColumn"/>
+        where vip_id = #{vipId}
+    </select>
+
+    <!--插入一条数据-->
+    <insert id="insert" keyProperty="vipId" useGeneratedKeys="true">
+        insert into hotel2.vip(guest_id, vip_card, vip_integral, vip_del)
+        values (#{guestId}, #{vipCard}, #{vipIntegral}, #{vipDel})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update hotel2.vip
+        <include refid="setAll"/>
+        where vip_id = #{vipId}
+    </update>
+
+    <!--通过主键删除数据-->
+    <delete id="deleteById">
+        delete
+        from hotel2.vip
+        where vip_id = #{vipId}
+    </delete>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from vip
+        <include refid="whereAll"/>
+    </select>
+
+</mapper>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccu.server.dao.UserDao">
+
+    <resultMap type="com.ccu.server.entity.User" id="UserMap">
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="userStatus" column="user_status" jdbcType="INTEGER"/>
+        <result property="userDel" column="user_del" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询所有字段-->
+    <sql id="queryAllColumn">
+        select `username`,
+               `password`,
+               `user_status`,
+               `user_del`
+        from hotel2.user
+    </sql>
+
+    <!--所有的where条件-->
+    <sql id="whereAll">
+        <where>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="username != null and username != ''">
+                and username = #{username}
+            </if>
+            <if test="password != null and password != ''">
+                and password = #{password}
+            </if>
+            <if test="userStatus != null">
+                and user_status = #{userStatus}
+            </if>
+            <if test="userDel != null">
+                and user_del = #{userDel}
+            </if>
+        </where>
+    </sql>
+
+    <!--除主键外所有set条件-->
+    <sql id="setAll">
+        <set>
+            <if test="username != null and username != ''">
+                username = #{username},
+            </if>
+            <if test="password != null and password != ''">
+                password = #{password},
+            </if>
+            <if test="userStatus != null">
+                user_status = #{userStatus},
+            </if>
+            <if test="userDel != null">
+                user_del = #{userDel},
+            </if>
+        </set>
+    </sql>
+
+    <!--查询所有数据-->
+    <select id="queryAll" resultMap="UserMap">
+        <include refid="queryAllColumn"/>
+        <include refid="whereAll"/>
+    </select>
+
+    <!--通过主键查询单条数据-->
+    <select id="queryById" resultMap="UserMap">
+        <include refid="queryAllColumn"/>
+        where user_id = #{userId}
+    </select>
+
+    <!--插入一条数据-->
+    <insert id="insert" keyProperty="userId" useGeneratedKeys="true">
+        insert into hotel2.user(username, password, user_status, user_del)
+        values (#{username}, #{password}, #{userStatus}, #{userDel})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update hotel2.user
+        <include refid="setAll"/>
+        where user_id = #{userId}
+    </update>
+
+    <!--通过主键删除数据-->
+    <delete id="deleteById">
+        delete
+        from hotel2.user
+        where user_id = #{userId}
+    </delete>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from user
+        <include refid="whereAll"/>
+    </select>
+
+</mapper>

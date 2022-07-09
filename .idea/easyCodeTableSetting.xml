@@ -3,6 +3,142 @@
   <component name="EasyCodeTableSetting">
     <option name="tableInfoMap">
       <map>
+        <entry key="guest">
+          <value>
+            <TableInfoDTO>
+              <option name="fullColumn">
+                <list>
+                  <ColumnInfoDTO>
+                    <option name="comment" value="顾客ID" />
+                    <option name="custom" value="false" />
+                    <option name="ext">
+                      <map>
+                        <entry key="jdbcType">
+                          <value>
+                            <Object />
+                          </value>
+                        </entry>
+                        <entry key="sqlType">
+                          <value>
+                            <Object />
+                          </value>
+                        </entry>
+                      </map>
+                    </option>
+                    <option name="name" value="guestId" />
+                    <option name="type" value="java.lang.Integer" />
+                  </ColumnInfoDTO>
+                  <ColumnInfoDTO>
+                    <option name="comment" value="顾客姓名" />
+                    <option name="custom" value="false" />
+                    <option name="ext">
+                      <map>
+                        <entry key="jdbcType">
+                          <value>
+                            <Object />
+                          </value>
+                        </entry>
+                        <entry key="sqlType">
+                          <value>
+                            <Object />
+                          </value>
+                        </entry>
+                      </map>
+                    </option>
+                    <option name="name" value="guestName" />
+                    <option name="type" value="java.lang.String" />
+                  </ColumnInfoDTO>
+                  <ColumnInfoDTO>
+                    <option name="comment" value="顾客性别" />
+                    <option name="custom" value="false" />
+                    <option name="ext">
+                      <map>
+                        <entry key="jdbcType">
+                          <value>
+                            <Object />
+                          </value>
+                        </entry>
+                        <entry key="sqlType">
+                          <value>
+                            <Object />
+                          </value>
+                        </entry>
+                      </map>
+                    </option>
+                    <option name="name" value="guestGander" />
+                    <option name="type" value="java.lang.String" />
+                  </ColumnInfoDTO>
+                  <ColumnInfoDTO>
+                    <option name="comment" value="顾客身份证号码" />
+                    <option name="custom" value="false" />
+                    <option name="ext">
+                      <map>
+                        <entry key="jdbcType">
+                          <value>
+                            <Object />
+                          </value>
+                        </entry>
+                        <entry key="sqlType">
+                          <value>
+                            <Object />
+                          </value>
+                        </entry>
+                      </map>
+                    </option>
+                    <option name="name" value="guestIdcard" />
+                    <option name="type" value="java.lang.String" />
+                  </ColumnInfoDTO>
+                  <ColumnInfoDTO>
+                    <option name="comment" value="顾客手机号码" />
+                    <option name="custom" value="false" />
+                    <option name="ext">
+                      <map>
+                        <entry key="jdbcType">
+                          <value>
+                            <Object />
+                          </value>
+                        </entry>
+                        <entry key="sqlType">
+                          <value>
+                            <Object />
+                          </value>
+                        </entry>
+                      </map>
+                    </option>
+                    <option name="name" value="guestPhoneNumber" />
+                    <option name="type" value="java.lang.String" />
+                  </ColumnInfoDTO>
+                  <ColumnInfoDTO>
+                    <option name="comment" value="逻辑删除" />
+                    <option name="custom" value="false" />
+                    <option name="ext">
+                      <map>
+                        <entry key="jdbcType">
+                          <value>
+                            <Object />
+                          </value>
+                        </entry>
+                        <entry key="sqlType">
+                          <value>
+                            <Object />
+                          </value>
+                        </entry>
+                      </map>
+                    </option>
+                    <option name="name" value="guestDel" />
+                    <option name="type" value="java.lang.Integer" />
+                  </ColumnInfoDTO>
+                </list>
+              </option>
+              <option name="name" value="Guest" />
+              <option name="preName" value="" />
+              <option name="saveModelName" value="hotel_server" />
+              <option name="savePackageName" value="com.ccu.server" />
+              <option name="savePath" value="./hotel_server/src/main/java/com/ccu/server" />
+              <option name="templateGroupName" value="zidingyi" />
+            </TableInfoDTO>
+          </value>
+        </entry>
         <entry key="guests">
           <value>
             <TableInfoDTO>
@@ -323,44 +459,6 @@
                     <option name="type" value="java.lang.Double" />
                   </ColumnInfoDTO>
                   <ColumnInfoDTO>
-                    <option name="custom" value="false" />
-                    <option name="ext">
-                      <map>
-                        <entry key="jdbcType">
-                          <value>
-                            <Object />
-                          </value>
-                        </entry>
-                        <entry key="sqlType">
-                          <value>
-                            <Object />
-                          </value>
-                        </entry>
-                      </map>
-                    </option>
-                    <option name="name" value="createTime" />
-                    <option name="type" value="java.sql.Timestamp" />
-                  </ColumnInfoDTO>
-                  <ColumnInfoDTO>
-                    <option name="custom" value="false" />
-                    <option name="ext">
-                      <map>
-                        <entry key="jdbcType">
-                          <value>
-                            <Object />
-                          </value>
-                        </entry>
-                        <entry key="sqlType">
-                          <value>
-                            <Object />
-                          </value>
-                        </entry>
-                      </map>
-                    </option>
-                    <option name="name" value="updateTime" />
-                    <option name="type" value="java.sql.Timestamp" />
-                  </ColumnInfoDTO>
-                  <ColumnInfoDTO>
                     <option name="comment" value="是否删除，默认0，0为未删除" />
                     <option name="custom" value="false" />
                     <option name="ext">
@@ -384,10 +482,10 @@
               </option>
               <option name="name" value="Record" />
               <option name="preName" value="" />
-              <option name="saveModelName" value="hotel_sys" />
-              <option name="savePackageName" value="com.ccu.hotel" />
-              <option name="savePath" value="./hotel_sys/src/main/java/com/ccu/hotel" />
-              <option name="templateGroupName" value="myDefaultBak" />
+              <option name="saveModelName" value="hotel_server" />
+              <option name="savePackageName" value="com.ccu.server" />
+              <option name="savePath" value="./hotel_server/src/main/java/com/ccu/server" />
+              <option name="templateGroupName" value="zidingyi" />
             </TableInfoDTO>
           </value>
         </entry>
@@ -497,44 +595,6 @@
                     <option name="type" value="java.lang.String" />
                   </ColumnInfoDTO>
                   <ColumnInfoDTO>
-                    <option name="custom" value="false" />
-                    <option name="ext">
-                      <map>
-                        <entry key="jdbcType">
-                          <value>
-                            <Object />
-                          </value>
-                        </entry>
-                        <entry key="sqlType">
-                          <value>
-                            <Object />
-                          </value>
-                        </entry>
-                      </map>
-                    </option>
-                    <option name="name" value="createTime" />
-                    <option name="type" value="java.sql.Timestamp" />
-                  </ColumnInfoDTO>
-                  <ColumnInfoDTO>
-                    <option name="custom" value="false" />
-                    <option name="ext">
-                      <map>
-                        <entry key="jdbcType">
-                          <value>
-                            <Object />
-                          </value>
-                        </entry>
-                        <entry key="sqlType">
-                          <value>
-                            <Object />
-                          </value>
-                        </entry>
-                      </map>
-                    </option>
-                    <option name="name" value="updateTime" />
-                    <option name="type" value="java.sql.Timestamp" />
-                  </ColumnInfoDTO>
-                  <ColumnInfoDTO>
                     <option name="comment" value="是否已删除，默认为0，0为没删除" />
                     <option name="custom" value="false" />
                     <option name="ext">
@@ -558,10 +618,10 @@
               </option>
               <option name="name" value="Room" />
               <option name="preName" value="" />
-              <option name="saveModelName" value="hotel_sys" />
-              <option name="savePackageName" value="com.ccu.hotel" />
-              <option name="savePath" value="./hotel_sys/src/main/java/com/ccu/hotel" />
-              <option name="templateGroupName" value="" />
+              <option name="saveModelName" value="hotel_server" />
+              <option name="savePackageName" value="com.ccu.server" />
+              <option name="savePath" value="./hotel_server/src/main/java/com/ccu/server" />
+              <option name="templateGroupName" value="zidingyi" />
             </TableInfoDTO>
           </value>
         </entry>
@@ -671,44 +731,6 @@
                     <option name="type" value="java.lang.Double" />
                   </ColumnInfoDTO>
                   <ColumnInfoDTO>
-                    <option name="custom" value="false" />
-                    <option name="ext">
-                      <map>
-                        <entry key="jdbcType">
-                          <value>
-                            <Object />
-                          </value>
-                        </entry>
-                        <entry key="sqlType">
-                          <value>
-                            <Object />
-                          </value>
-                        </entry>
-                      </map>
-                    </option>
-                    <option name="name" value="createTime" />
-                    <option name="type" value="java.sql.Timestamp" />
-                  </ColumnInfoDTO>
-                  <ColumnInfoDTO>
-                    <option name="custom" value="false" />
-                    <option name="ext">
-                      <map>
-                        <entry key="jdbcType">
-                          <value>
-                            <Object />
-                          </value>
-                        </entry>
-                        <entry key="sqlType">
-                          <value>
-                            <Object />
-                          </value>
-                        </entry>
-                      </map>
-                    </option>
-                    <option name="name" value="updateTime" />
-                    <option name="type" value="java.sql.Timestamp" />
-                  </ColumnInfoDTO>
-                  <ColumnInfoDTO>
                     <option name="comment" value="是否删除，默认为0，0为没有删除" />
                     <option name="custom" value="false" />
                     <option name="ext">
@@ -732,10 +754,10 @@
               </option>
               <option name="name" value="RoomType" />
               <option name="preName" value="" />
-              <option name="saveModelName" value="hotel_sys" />
-              <option name="savePackageName" value="com.ccu.hotel" />
-              <option name="savePath" value="./hotel_sys/src/main/java/com/ccu/hotel" />
-              <option name="templateGroupName" value="" />
+              <option name="saveModelName" value="hotel_server" />
+              <option name="savePackageName" value="com.ccu.server" />
+              <option name="savePath" value="./hotel_server/src/main/java/com/ccu/server" />
+              <option name="templateGroupName" value="zidingyi" />
             </TableInfoDTO>
           </value>
         </entry>
@@ -823,71 +845,14 @@
                     <option name="name" value="welcomeWords" />
                     <option name="type" value="java.lang.String" />
                   </ColumnInfoDTO>
-                  <ColumnInfoDTO>
-                    <option name="custom" value="false" />
-                    <option name="ext">
-                      <map>
-                        <entry key="jdbcType">
-                          <value>
-                            <Object />
-                          </value>
-                        </entry>
-                        <entry key="sqlType">
-                          <value>
-                            <Object />
-                          </value>
-                        </entry>
-                      </map>
-                    </option>
-                    <option name="name" value="createTime" />
-                    <option name="type" value="java.sql.Timestamp" />
-                  </ColumnInfoDTO>
-                  <ColumnInfoDTO>
-                    <option name="custom" value="false" />
-                    <option name="ext">
-                      <map>
-                        <entry key="jdbcType">
-                          <value>
-                            <Object />
-                          </value>
-                        </entry>
-                        <entry key="sqlType">
-                          <value>
-                            <Object />
-                          </value>
-                        </entry>
-                      </map>
-                    </option>
-                    <option name="name" value="updateTime" />
-                    <option name="type" value="java.sql.Timestamp" />
-                  </ColumnInfoDTO>
-                  <ColumnInfoDTO>
-                    <option name="custom" value="false" />
-                    <option name="ext">
-                      <map>
-                        <entry key="jdbcType">
-                          <value>
-                            <Object />
-                          </value>
-                        </entry>
-                        <entry key="sqlType">
-                          <value>
-                            <Object />
-                          </value>
-                        </entry>
-                      </map>
-                    </option>
-                    <option name="name" value="isDel" />
-                    <option name="type" value="java.lang.Integer" />
-                  </ColumnInfoDTO>
                 </list>
               </option>
               <option name="name" value="SystemInfo" />
               <option name="preName" value="" />
-              <option name="saveModelName" value="hotel_sys" />
-              <option name="savePackageName" value="com.ccu.hotel" />
-              <option name="savePath" value="./hotel_sys/src/main/java/com/ccu/hotel" />
-              <option name="templateGroupName" value="" />
+              <option name="saveModelName" value="hotel_server" />
+              <option name="savePackageName" value="com.ccu.server" />
+              <option name="savePath" value="./hotel_server/src/main/java/com/ccu/server" />
+              <option name="templateGroupName" value="zidingyi" />
             </TableInfoDTO>
           </value>
         </entry>
@@ -977,44 +942,6 @@
                     <option name="type" value="java.lang.Integer" />
                   </ColumnInfoDTO>
                   <ColumnInfoDTO>
-                    <option name="custom" value="false" />
-                    <option name="ext">
-                      <map>
-                        <entry key="jdbcType">
-                          <value>
-                            <Object />
-                          </value>
-                        </entry>
-                        <entry key="sqlType">
-                          <value>
-                            <Object />
-                          </value>
-                        </entry>
-                      </map>
-                    </option>
-                    <option name="name" value="createTime" />
-                    <option name="type" value="java.sql.Timestamp" />
-                  </ColumnInfoDTO>
-                  <ColumnInfoDTO>
-                    <option name="custom" value="false" />
-                    <option name="ext">
-                      <map>
-                        <entry key="jdbcType">
-                          <value>
-                            <Object />
-                          </value>
-                        </entry>
-                        <entry key="sqlType">
-                          <value>
-                            <Object />
-                          </value>
-                        </entry>
-                      </map>
-                    </option>
-                    <option name="name" value="updateTime" />
-                    <option name="type" value="java.sql.Timestamp" />
-                  </ColumnInfoDTO>
-                  <ColumnInfoDTO>
                     <option name="comment" value="是否删除，默认为0，0为没有删除" />
                     <option name="custom" value="false" />
                     <option name="ext">
@@ -1038,10 +965,10 @@
               </option>
               <option name="name" value="User" />
               <option name="preName" value="" />
-              <option name="saveModelName" value="hotel_sys" />
-              <option name="savePackageName" value="com.ccu.hotel" />
-              <option name="savePath" value="./hotel_sys/src/main/java/com/ccu/hotel" />
-              <option name="templateGroupName" value="" />
+              <option name="saveModelName" value="hotel_server" />
+              <option name="savePackageName" value="com.ccu.server" />
+              <option name="savePath" value="./hotel_server/src/main/java/com/ccu/server" />
+              <option name="templateGroupName" value="zidingyi" />
             </TableInfoDTO>
           </value>
         </entry>
@@ -1128,45 +1055,7 @@
                       </map>
                     </option>
                     <option name="name" value="vipIntegral" />
-                    <option name="type" value="java.lang.Object" />
-                  </ColumnInfoDTO>
-                  <ColumnInfoDTO>
-                    <option name="custom" value="false" />
-                    <option name="ext">
-                      <map>
-                        <entry key="jdbcType">
-                          <value>
-                            <Object />
-                          </value>
-                        </entry>
-                        <entry key="sqlType">
-                          <value>
-                            <Object />
-                          </value>
-                        </entry>
-                      </map>
-                    </option>
-                    <option name="name" value="createTime" />
-                    <option name="type" value="java.sql.Timestamp" />
-                  </ColumnInfoDTO>
-                  <ColumnInfoDTO>
-                    <option name="custom" value="false" />
-                    <option name="ext">
-                      <map>
-                        <entry key="jdbcType">
-                          <value>
-                            <Object />
-                          </value>
-                        </entry>
-                        <entry key="sqlType">
-                          <value>
-                            <Object />
-                          </value>
-                        </entry>
-                      </map>
-                    </option>
-                    <option name="name" value="updateTime" />
-                    <option name="type" value="java.sql.Timestamp" />
+                    <option name="type" value="java.lang.Integer" />
                   </ColumnInfoDTO>
                   <ColumnInfoDTO>
                     <option name="comment" value="逻辑删除" />
@@ -1192,10 +1081,10 @@
               </option>
               <option name="name" value="Vip" />
               <option name="preName" value="" />
-              <option name="saveModelName" value="hotel_sys" />
-              <option name="savePackageName" value="com.ccu.hotel" />
-              <option name="savePath" value="./hotel_sys/src/main/java/com/ccu/hotel" />
-              <option name="templateGroupName" value="" />
+              <option name="saveModelName" value="hotel_server" />
+              <option name="savePackageName" value="com.ccu.server" />
+              <option name="savePath" value="./hotel_server/src/main/java/com/ccu/server" />
+              <option name="templateGroupName" value="zidingyi" />
             </TableInfoDTO>
           </value>
         </entry>

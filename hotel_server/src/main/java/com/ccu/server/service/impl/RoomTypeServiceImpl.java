@@ -1,0 +1,115 @@
+package com.ccu.server.service.impl;
+
+import com.ccu.server.entity.RoomType;
+import com.ccu.server.dao.RoomTypeDao;
+import com.ccu.server.service.RoomTypeService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.ccu.server.common.utils.web.PageEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/**
+ * (RoomType)表服务实现类
+ *
+ * @author zmj
+ * @since 2022-07-09 13:47:30
+ */
+@Service
+public class RoomTypeServiceImpl implements RoomTypeService {
+
+    @Autowired
+    private RoomTypeDao roomTypeDao;
+
+    /**
+     * 分页查询
+     *
+     * @param roomType 筛选条件
+     * @param page     当前页
+     * @param pageSize 每页的条数
+     * @return 查询结果
+     */
+    @Override
+    public PageEntity<RoomType> queryByPage(RoomType roomType, Integer page, Integer pageSize) {
+        PageHelper.startPage(page, pageSize);
+        PageInfo<RoomType> pageInfo = new PageInfo<>(this.roomTypeDao.queryAll(roomType));
+        return new PageEntity<RoomType>(pageInfo.getList(), (long) pageInfo.getPageNum(), pageInfo.getTotal());
+    }
+
+    /**
+     * 通过主键查询单条数据
+     *
+     * @param id 主键
+     * @return 单条数据
+     */
+    @Override
+    public RoomType queryById(Integer id) {
+        return this.roomTypeDao.queryById(id);
+    }
+
+    /**
+     * 插入一条数据
+     *
+     * @param roomType 实例对象
+     * @return 受影响行数
+     */
+    @Override
+    public Integer insert(RoomType roomType) {
+        return this.roomTypeDao.insert(roomType);
+    }
+
+    /**
+     * 批量插入数据
+     *
+     * @param roomTypeList 实体列表
+     * @return 受影响行数
+     */
+    @Override
+    public Integer batchInsert(List<RoomType> roomTypeList) {
+        int num = 0;
+        for (RoomType roomType : roomTypeList) {
+            num += this.roomTypeDao.insert(roomType);
+        }
+        return num;
+    }
+
+    /**
+     * 通过主键修改数据
+     *
+     * @param roomType 实例对象
+     * @return 受影响行数
+     */
+    @Override
+    public Integer update(RoomType roomType) {
+        return this.roomTypeDao.update(roomType);
+    }
+
+    /**
+     * 通过主键删除数据
+     *
+     * @param id 主键
+     * @return 受影响行数
+     */
+    @Override
+    public Integer deleteById(Integer id) {
+        return this.roomTypeDao.deleteById(id);
+    }
+
+    /**
+     * 通过主键批量删除数据
+     *
+     * @param ids 主键数组
+     * @return 受影响行数
+     */
+    @Override
+    public Integer batchDelete(Integer[] ids) {
+        int num = 0;
+        for (Integer id : ids) {
+            num += this.roomTypeDao.deleteById(id);
+        }
+        return num;
+    }
+
+}

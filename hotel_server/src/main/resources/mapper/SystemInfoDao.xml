@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccu.server.dao.SystemInfoDao">
+
+    <resultMap type="com.ccu.server.entity.SystemInfo" id="SystemInfoMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="hotelName" column="hotel_name" jdbcType="VARCHAR"/>
+        <result property="systemName" column="system_name" jdbcType="VARCHAR"/>
+        <result property="welcomeWords" column="welcome_words" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询所有字段-->
+    <sql id="queryAllColumn">
+        select `hotel_name`,
+               `system_name`,
+               `welcome_words`
+        from hotel2.system_info
+    </sql>
+
+    <!--所有的where条件-->
+    <sql id="whereAll">
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="hotelName != null and hotelName != ''">
+                and hotel_name = #{hotelName}
+            </if>
+            <if test="systemName != null and systemName != ''">
+                and system_name = #{systemName}
+            </if>
+            <if test="welcomeWords != null and welcomeWords != ''">
+                and welcome_words = #{welcomeWords}
+            </if>
+        </where>
+    </sql>
+
+    <!--除主键外所有set条件-->
+    <sql id="setAll">
+        <set>
+            <if test="hotelName != null and hotelName != ''">
+                hotel_name = #{hotelName},
+            </if>
+            <if test="systemName != null and systemName != ''">
+                system_name = #{systemName},
+            </if>
+            <if test="welcomeWords != null and welcomeWords != ''">
+                welcome_words = #{welcomeWords},
+            </if>
+        </set>
+    </sql>
+
+    <!--查询所有数据-->
+    <select id="queryAll" resultMap="SystemInfoMap">
+        <include refid="queryAllColumn"/>
+        <include refid="whereAll"/>
+    </select>
+
+    <!--通过主键查询单条数据-->
+    <select id="queryById" resultMap="SystemInfoMap">
+        <include refid="queryAllColumn"/>
+        where id = #{id}
+    </select>
+
+    <!--插入一条数据-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into hotel2.system_info(hotel_name, system_name, welcome_words)
+        values (#{hotelName}, #{systemName}, #{welcomeWords})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update hotel2.system_info
+        <include refid="setAll"/>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除数据-->
+    <delete id="deleteById">
+        delete
+        from hotel2.system_info
+        where id = #{id}
+    </delete>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from system_info
+        <include refid="whereAll"/>
+    </select>
+
+</mapper>

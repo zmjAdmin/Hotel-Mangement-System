@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccu.server.dao.RoomTypeDao">
+
+    <resultMap type="com.ccu.server.entity.RoomType" id="RoomTypeMap">
+        <result property="roomTypeId" column="room_type_id" jdbcType="INTEGER"/>
+        <result property="roomTypeName" column="room_type_name" jdbcType="VARCHAR"/>
+        <result property="roomTypeDescription" column="room_type_description" jdbcType="VARCHAR"/>
+        <result property="dayPrice" column="day_price" jdbcType="NUMERIC"/>
+        <result property="hourPrice" column="hour_price" jdbcType="NUMERIC"/>
+        <result property="roomTypeDel" column="room_type_del" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询所有字段-->
+    <sql id="queryAllColumn">
+        select `room_type_name`,
+               `room_type_description`,
+               `day_price`,
+               `hour_price`,
+               `room_type_del`
+        from hotel2.room_type
+    </sql>
+
+    <!--所有的where条件-->
+    <sql id="whereAll">
+        <where>
+            <if test="roomTypeId != null">
+                and room_type_id = #{roomTypeId}
+            </if>
+            <if test="roomTypeName != null and roomTypeName != ''">
+                and room_type_name = #{roomTypeName}
+            </if>
+            <if test="roomTypeDescription != null and roomTypeDescription != ''">
+                and room_type_description = #{roomTypeDescription}
+            </if>
+            <if test="dayPrice != null">
+                and day_price = #{dayPrice}
+            </if>
+            <if test="hourPrice != null">
+                and hour_price = #{hourPrice}
+            </if>
+            <if test="roomTypeDel != null">
+                and room_type_del = #{roomTypeDel}
+            </if>
+        </where>
+    </sql>
+
+    <!--除主键外所有set条件-->
+    <sql id="setAll">
+        <set>
+            <if test="roomTypeName != null and roomTypeName != ''">
+                room_type_name = #{roomTypeName},
+            </if>
+            <if test="roomTypeDescription != null and roomTypeDescription != ''">
+                room_type_description = #{roomTypeDescription},
+            </if>
+            <if test="dayPrice != null">
+                day_price = #{dayPrice},
+            </if>
+            <if test="hourPrice != null">
+                hour_price = #{hourPrice},
+            </if>
+            <if test="roomTypeDel != null">
+                room_type_del = #{roomTypeDel},
+            </if>
+        </set>
+    </sql>
+
+    <!--查询所有数据-->
+    <select id="queryAll" resultMap="RoomTypeMap">
+        <include refid="queryAllColumn"/>
+        <include refid="whereAll"/>
+    </select>
+
+    <!--通过主键查询单条数据-->
+    <select id="queryById" resultMap="RoomTypeMap">
+        <include refid="queryAllColumn"/>
+        where room_type_id = #{roomTypeId}
+    </select>
+
+    <!--插入一条数据-->
+    <insert id="insert" keyProperty="roomTypeId" useGeneratedKeys="true">
+        insert into hotel2.room_type(room_type_name, room_type_description, day_price, hour_price, room_type_del)
+        values (#{roomTypeName}, #{roomTypeDescription}, #{dayPrice}, #{hourPrice}, #{roomTypeDel})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update hotel2.room_type
+        <include refid="setAll"/>
+        where room_type_id = #{roomTypeId}
+    </update>
+
+    <!--通过主键删除数据-->
+    <delete id="deleteById">
+        delete
+        from hotel2.room_type
+        where room_type_id = #{roomTypeId}
+    </delete>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from room_type
+        <include refid="whereAll"/>
+    </select>
+
+</mapper>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccu.server.dao.GuestDao">
+
+    <resultMap type="com.ccu.server.entity.Guest" id="GuestMap">
+        <result property="guestId" column="guest_id" jdbcType="INTEGER"/>
+        <result property="guestName" column="guest_name" jdbcType="VARCHAR"/>
+        <result property="guestGander" column="guest_gander" jdbcType="VARCHAR"/>
+        <result property="guestIdcard" column="guest_idcard" jdbcType="VARCHAR"/>
+        <result property="guestPhoneNumber" column="guest_phone_number" jdbcType="VARCHAR"/>
+        <result property="guestDel" column="guest_del" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询所有字段-->
+    <sql id="queryAllColumn">
+        select `guest_name`,
+               `guest_gander`,
+               `guest_phone_number`,
+               `guest_del`
+        from hotel2.guest
+    </sql>
+
+    <!--所有的where条件-->
+    <sql id="whereAll">
+        <where>
+            <if test="guestId != null">
+                and guest_id = #{guestId}
+            </if>
+            <if test="guestName != null and guestName != ''">
+                and guest_name = #{guestName}
+            </if>
+            <if test="guestGander != null and guestGander != ''">
+                and guest_gander = #{guestGander}
+            </if>
+            <if test="guestIdcard != null and guestIdcard != ''">
+                and guest_idcard = #{guestIdcard}
+            </if>
+            <if test="guestPhoneNumber != null and guestPhoneNumber != ''">
+                and guest_phone_number = #{guestPhoneNumber}
+            </if>
+            <if test="guestDel != null">
+                and guest_del = #{guestDel}
+            </if>
+        </where>
+    </sql>
+
+    <!--除主键外所有set条件-->
+    <sql id="setAll">
+        <set>
+            <if test="guestName != null and guestName != ''">
+                guest_name = #{guestName},
+            </if>
+            <if test="guestGander != null and guestGander != ''">
+                guest_gander = #{guestGander},
+            </if>
+            <if test="guestPhoneNumber != null and guestPhoneNumber != ''">
+                guest_phone_number = #{guestPhoneNumber},
+            </if>
+            <if test="guestDel != null">
+                guest_del = #{guestDel},
+            </if>
+        </set>
+    </sql>
+
+    <!--查询所有数据-->
+    <select id="queryAll" resultMap="GuestMap">
+        <include refid="queryAllColumn"/>
+        <include refid="whereAll"/>
+    </select>
+
+    <!--通过主键查询单条数据-->
+    <select id="queryById" resultMap="GuestMap">
+        <include refid="queryAllColumn"/>
+        where guest_id = #{guestId}
+    </select>
+
+    <!--插入一条数据-->
+    <insert id="insert" keyProperty="guestId" useGeneratedKeys="true">
+        insert into hotel2.guest(guest_name, guest_gander, guest_phone_number, guest_del)
+        values (#{guestName}, #{guestGander}, #{guestPhoneNumber}, #{guestDel})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update hotel2.guest
+        <include refid="setAll"/>
+        where guest_id = #{guestId}
+    </update>
+
+    <!--通过主键删除数据-->
+    <delete id="deleteById">
+        delete
+        from hotel2.guest
+        where guest_id = #{guestId}
+    </delete>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from guest
+        <include refid="whereAll"/>
+    </select>
+
+</mapper>
