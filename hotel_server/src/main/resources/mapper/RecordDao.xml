@@ -15,7 +15,8 @@
 
     <!--查询所有字段-->
     <sql id="queryAllColumn">
-        select `guest_id`,
+        select `record_id`,
+               `guest_id`,
                `room_id`,
                `enter_time`,
                `exit_time`,

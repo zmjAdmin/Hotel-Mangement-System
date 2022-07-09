@@ -11,7 +11,8 @@
 
     <!--查询所有字段-->
     <sql id="queryAllColumn">
-        select `hotel_name`,
+        select `id`,
+               `hotel_name`,
                `system_name`,
                `welcome_words`
         from hotel2.system_info

@@ -12,7 +12,7 @@ import java.util.List;
  * (Guest)控制层
  *
  * @author zmj
- * @since 2022-07-09 17:53:27
+ * @since 2022-07-09 18:43:34
  */
 @RestController
 @RequestMapping("/guest")
@@ -33,7 +33,7 @@ public class GuestController {
      * @return 查询结果
      */
     @GetMapping("/{page}/{pageSize}")
-    public AjaxResult queryByPage(@RequestParam Guest guest, @PathVariable("page") Integer page, @PathVariable("pageSize") Integer pageSize) {
+    public AjaxResult queryByPage(Guest guest, @PathVariable("page") Integer page, @PathVariable("pageSize") Integer pageSize) {
         return AjaxResult.querySuccess(this.guestService.queryByPage(guest, page, pageSize));
     }
 

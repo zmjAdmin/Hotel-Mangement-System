@@ -19,6 +19,9 @@ mybatis:
 
 server:
   port: 8081
+#logging:
+#  level:
+#    com.ccu.server.dao: debug
 logging:
   level:
-    com.ccu.server.dao: debug
+    root: debug

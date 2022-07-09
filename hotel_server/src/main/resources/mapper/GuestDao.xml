@@ -13,8 +13,10 @@
 
     <!--查询所有字段-->
     <sql id="queryAllColumn">
-        select `guest_name`,
+        select `guest_id`,
+               `guest_name`,
                `guest_gander`,
+               `guest_idcard`,
                `guest_phone_number`,
                `guest_del`
         from hotel2.guest

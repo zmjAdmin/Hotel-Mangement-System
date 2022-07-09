@@ -13,7 +13,8 @@
 
     <!--查询所有字段-->
     <sql id="queryAllColumn">
-        select `room_type_name`,
+        select `room_type_id`,
+               `room_type_name`,
                `room_type_description`,
                `day_price`,
                `hour_price`,

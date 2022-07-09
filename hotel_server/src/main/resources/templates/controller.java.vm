@@ -45,7 +45,7 @@ private $!{tableInfo.name}Service $!tool.firstLowerCase($tableInfo.name)Service;
  * @return 查询结果
  */
 @GetMapping("/{$pageNumName}/{$pageSizeName}")
-public AjaxResult queryByPage(@RequestParam $!{tableInfo.name} $!{tool.firstLowerCase($tableInfo.name)},@PathVariable("$pageNumName") Integer $pageNumName,@PathVariable("$pageSizeName") Integer $pageSizeName){
+public AjaxResult queryByPage($!{tableInfo.name} $!{tool.firstLowerCase($tableInfo.name)},@PathVariable("$pageNumName") Integer $pageNumName,@PathVariable("$pageSizeName") Integer $pageSizeName){
         return AjaxResult.querySuccess(this.$!{tool.firstLowerCase($tableInfo.name)}Service.queryByPage($!{tool.firstLowerCase($tableInfo.name)}, $pageNumName, $pageSizeName));
         }
 

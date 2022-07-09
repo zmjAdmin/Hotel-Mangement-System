@@ -12,7 +12,7 @@ import java.util.List;
  * (SystemInfo)控制层
  *
  * @author zmj
- * @since 2022-07-09 17:53:28
+ * @since 2022-07-09 18:43:34
  */
 @RestController
 @RequestMapping("/systemInfo")
@@ -33,7 +33,7 @@ public class SystemInfoController {
      * @return 查询结果
      */
     @GetMapping("/{page}/{pageSize}")
-    public AjaxResult queryByPage(@RequestParam SystemInfo systemInfo, @PathVariable("page") Integer page, @PathVariable("pageSize") Integer pageSize) {
+    public AjaxResult queryByPage(SystemInfo systemInfo, @PathVariable("page") Integer page, @PathVariable("pageSize") Integer pageSize) {
         return AjaxResult.querySuccess(this.systemInfoService.queryByPage(systemInfo, page, pageSize));
     }
 

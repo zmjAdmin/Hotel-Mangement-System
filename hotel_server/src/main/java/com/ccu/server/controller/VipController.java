@@ -12,7 +12,7 @@ import java.util.List;
  * (Vip)控制层
  *
  * @author zmj
- * @since 2022-07-09 17:53:28
+ * @since 2022-07-09 18:43:35
  */
 @RestController
 @RequestMapping("/vip")
@@ -33,7 +33,7 @@ public class VipController {
      * @return 查询结果
      */
     @GetMapping("/{page}/{pageSize}")
-    public AjaxResult queryByPage(@RequestParam Vip vip, @PathVariable("page") Integer page, @PathVariable("pageSize") Integer pageSize) {
+    public AjaxResult queryByPage(Vip vip, @PathVariable("page") Integer page, @PathVariable("pageSize") Integer pageSize) {
         return AjaxResult.querySuccess(this.vipService.queryByPage(vip, page, pageSize));
     }
 
