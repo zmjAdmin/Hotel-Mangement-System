@@ -12,10 +12,10 @@ import java.util.List;
  * (Guest)控制层
  *
  * @author zmj
- * @since 2022-07-09 13:46:06
+ * @since 2022-07-09 17:53:27
  */
 @RestController
-@RequestMapping("guest")
+@RequestMapping("/guest")
 public class GuestController {
 
     /**
@@ -65,7 +65,7 @@ public class GuestController {
      * @param guestList 实体列表
      * @return 插入结果
      */
-    @PostMapping
+    @PostMapping("/batch")
     public AjaxResult batchInsert(@RequestBody List<Guest> guestList) {
         return AjaxResult.insertSuccess(this.guestService.batchInsert(guestList));
     }
@@ -98,7 +98,7 @@ public class GuestController {
      * @param ids 主键数组
      * @return 删除结果
      */
-    @DeleteMapping
+    @DeleteMapping("/batch")
     public AjaxResult batchDelete(@RequestBody Integer[] ids) {
         return AjaxResult.deleteSuccess(this.guestService.batchDelete(ids));
     }

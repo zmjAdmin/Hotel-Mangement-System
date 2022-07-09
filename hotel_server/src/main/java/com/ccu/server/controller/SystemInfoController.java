@@ -12,10 +12,10 @@ import java.util.List;
  * (SystemInfo)控制层
  *
  * @author zmj
- * @since 2022-07-09 13:47:46
+ * @since 2022-07-09 17:53:28
  */
 @RestController
-@RequestMapping("systemInfo")
+@RequestMapping("/systemInfo")
 public class SystemInfoController {
 
     /**
@@ -65,7 +65,7 @@ public class SystemInfoController {
      * @param systemInfoList 实体列表
      * @return 插入结果
      */
-    @PostMapping
+    @PostMapping("/batch")
     public AjaxResult batchInsert(@RequestBody List<SystemInfo> systemInfoList) {
         return AjaxResult.insertSuccess(this.systemInfoService.batchInsert(systemInfoList));
     }
@@ -98,7 +98,7 @@ public class SystemInfoController {
      * @param ids 主键数组
      * @return 删除结果
      */
-    @DeleteMapping
+    @DeleteMapping("/batch")
     public AjaxResult batchDelete(@RequestBody Integer[] ids) {
         return AjaxResult.deleteSuccess(this.systemInfoService.batchDelete(ids));
     }

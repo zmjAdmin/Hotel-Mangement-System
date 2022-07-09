@@ -12,10 +12,10 @@ import java.util.List;
  * (Vip)控制层
  *
  * @author zmj
- * @since 2022-07-09 13:48:06
+ * @since 2022-07-09 17:53:28
  */
 @RestController
-@RequestMapping("vip")
+@RequestMapping("/vip")
 public class VipController {
 
     /**
@@ -65,7 +65,7 @@ public class VipController {
      * @param vipList 实体列表
      * @return 插入结果
      */
-    @PostMapping
+    @PostMapping("/batch")
     public AjaxResult batchInsert(@RequestBody List<Vip> vipList) {
         return AjaxResult.insertSuccess(this.vipService.batchInsert(vipList));
     }
@@ -98,7 +98,7 @@ public class VipController {
      * @param ids 主键数组
      * @return 删除结果
      */
-    @DeleteMapping
+    @DeleteMapping("/batch")
     public AjaxResult batchDelete(@RequestBody Integer[] ids) {
         return AjaxResult.deleteSuccess(this.vipService.batchDelete(ids));
     }

@@ -27,7 +27,7 @@ import java.util.List;
  * @since $!time.currTime()
  */
 @RestController
-@RequestMapping("$!tool.firstLowerCase($tableInfo.name)")
+@RequestMapping("/$!tool.firstLowerCase($tableInfo.name)")
 public class $!{tableName} {
 
 /**
@@ -77,7 +77,7 @@ public AjaxResult insert(@RequestBody $!{tableInfo.name} $!{tool.firstLowerCase(
  * @param $!{tool.firstLowerCase($tableInfo.name)}List 实体列表
  * @return 插入结果
  */
-@PostMapping
+@PostMapping("/batch")
 public AjaxResult batchInsert(@RequestBody List<$!{tableInfo.name}> $!{tool.firstLowerCase($tableInfo.name)}List){
         return AjaxResult.insertSuccess(this.$!{tool.firstLowerCase($tableInfo.name)}Service.batchInsert($!{tool.firstLowerCase($tableInfo.name)}List));
         }
@@ -110,7 +110,7 @@ public AjaxResult deleteById(@PathVariable("id") $!pk.shortType id){
 * @param ids 主键数组
 * @return 删除结果
 */
-@DeleteMapping
+@DeleteMapping("/batch")
 public AjaxResult batchDelete(@RequestBody $!IdArr ids){
         return AjaxResult.deleteSuccess(this.$!{tool.firstLowerCase($tableInfo.name)}Service.batchDelete(ids));
         }

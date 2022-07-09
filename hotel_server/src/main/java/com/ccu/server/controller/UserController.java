@@ -12,10 +12,10 @@ import java.util.List;
  * (User)控制层
  *
  * @author zmj
- * @since 2022-07-09 13:45:11
+ * @since 2022-07-09 17:53:28
  */
 @RestController
-@RequestMapping("user")
+@RequestMapping("/user")
 public class UserController {
 
     /**
@@ -65,7 +65,7 @@ public class UserController {
      * @param userList 实体列表
      * @return 插入结果
      */
-    @PostMapping
+    @PostMapping("/batch")
     public AjaxResult batchInsert(@RequestBody List<User> userList) {
         return AjaxResult.insertSuccess(this.userService.batchInsert(userList));
     }
@@ -98,7 +98,7 @@ public class UserController {
      * @param ids 主键数组
      * @return 删除结果
      */
-    @DeleteMapping
+    @DeleteMapping("/batch")
     public AjaxResult batchDelete(@RequestBody Integer[] ids) {
         return AjaxResult.deleteSuccess(this.userService.batchDelete(ids));
     }

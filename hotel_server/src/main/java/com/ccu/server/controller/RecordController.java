@@ -12,10 +12,10 @@ import java.util.List;
  * (Record)控制层
  *
  * @author zmj
- * @since 2022-07-09 13:46:49
+ * @since 2022-07-09 17:53:28
  */
 @RestController
-@RequestMapping("record")
+@RequestMapping("/record")
 public class RecordController {
 
     /**
@@ -65,7 +65,7 @@ public class RecordController {
      * @param recordList 实体列表
      * @return 插入结果
      */
-    @PostMapping
+    @PostMapping("/batch")
     public AjaxResult batchInsert(@RequestBody List<Record> recordList) {
         return AjaxResult.insertSuccess(this.recordService.batchInsert(recordList));
     }
@@ -98,7 +98,7 @@ public class RecordController {
      * @param ids 主键数组
      * @return 删除结果
      */
-    @DeleteMapping
+    @DeleteMapping("/batch")
     public AjaxResult batchDelete(@RequestBody Integer[] ids) {
         return AjaxResult.deleteSuccess(this.recordService.batchDelete(ids));
     }

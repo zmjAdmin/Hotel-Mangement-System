@@ -12,10 +12,10 @@ import java.util.List;
  * (RoomType)控制层
  *
  * @author zmj
- * @since 2022-07-09 13:47:30
+ * @since 2022-07-09 17:53:28
  */
 @RestController
-@RequestMapping("roomType")
+@RequestMapping("/roomType")
 public class RoomTypeController {
 
     /**
@@ -65,7 +65,7 @@ public class RoomTypeController {
      * @param roomTypeList 实体列表
      * @return 插入结果
      */
-    @PostMapping
+    @PostMapping("/batch")
     public AjaxResult batchInsert(@RequestBody List<RoomType> roomTypeList) {
         return AjaxResult.insertSuccess(this.roomTypeService.batchInsert(roomTypeList));
     }
@@ -98,7 +98,7 @@ public class RoomTypeController {
      * @param ids 主键数组
      * @return 删除结果
      */
-    @DeleteMapping
+    @DeleteMapping("/batch")
     public AjaxResult batchDelete(@RequestBody Integer[] ids) {
         return AjaxResult.deleteSuccess(this.roomTypeService.batchDelete(ids));
     }
