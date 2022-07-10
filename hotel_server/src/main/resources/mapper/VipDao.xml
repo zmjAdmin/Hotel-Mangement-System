@@ -53,7 +53,7 @@
             <!--顾客筛选条件-->
             <if test="guest != null">
                 <if test="guest.guestId != null">
-                    and guest_id = #{guest.guestId}
+                    and guest.guest_id = #{guest.guestId}
                 </if>
                 <if test="guest.guestName != null and guest.guestName != ''">
                     and guest_name = #{guest.guestName}
@@ -77,8 +77,10 @@
     <!--除主键外所有set条件-->
     <sql id="setAll">
         <set>
-            <if test="guest.guestId != null">
-                guest_id = #{guest.guestId},
+            <if test="guest != null">
+                <if test="guest.guestId != null">
+                    guest_id = #{guest.guestId},
+                </if>
             </if>
             <if test="vipCard != null and vipCard != ''">
                 vip_card = #{vipCard},
@@ -107,7 +109,7 @@
     <!--插入一条数据-->
     <insert id="insert" keyProperty="vipId" useGeneratedKeys="true">
         insert into hotel2.vip(guest_id, vip_card, vip_integral, vip_del)
-        values (#{guestId}, #{vipCard}, #{vipIntegral}, #{vipDel})
+        values (#{guest.guestId}, #{vipCard}, #{vipIntegral}, #{vipDel})
     </insert>
 
     <!--通过主键修改数据-->

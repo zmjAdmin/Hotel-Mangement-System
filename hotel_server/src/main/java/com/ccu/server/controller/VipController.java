@@ -49,7 +49,7 @@ public class VipController {
     }
 
     /**
-     * 插入一条数据
+     * 添加VIP顾客
      *
      * @param vip 实体
      * @return 插入结果

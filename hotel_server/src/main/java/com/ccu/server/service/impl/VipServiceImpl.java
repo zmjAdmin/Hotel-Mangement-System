@@ -1,7 +1,9 @@
 package com.ccu.server.service.impl;
 
+import com.ccu.server.entity.Guest;
 import com.ccu.server.entity.Vip;
 import com.ccu.server.dao.VipDao;
+import com.ccu.server.service.GuestService;
 import com.ccu.server.service.VipService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -22,6 +24,9 @@ public class VipServiceImpl implements VipService {
 
     @Autowired
     private VipDao vipDao;
+
+    @Autowired
+    private GuestService guestService;
 
     /**
      * 分页查询
@@ -58,17 +63,42 @@ public class VipServiceImpl implements VipService {
     }
 
     /**
-     * 插入一条数据
+     * 添加VIP顾客
      *
      * @param vip 实例对象
      * @return 受影响行数
      */
     @Override
     public Integer insert(Vip vip) {
+        Integer guestId = null;
+        int num1 = 0;
+        int num2 = 0;
+        int num3 = 0;
+        //1. 添加顾客
+        Guest guest = new Guest();
+        guest.setGuestIdcard(vip.getGuest().getGuestIdcard());
+        //根据顾客身份证号查询顾客
+        List<Guest> list = this.guestService.queryByPage(guest, 1, 1).getData();
+        if(list.size() > 0){
+            //该VIP顾客已经是普通顾客了
+            guestId = list.get(0).getGuestId();
+            if(this.guestService.queryByPage(vip.getGuest(), 1, 1).getData().size() == 0){
+                //该顾客的信息不准确，更新顾客信息
+                guest = vip.getGuest();
+                guest.setGuestId(list.get(0).getGuestId());
+                num1 = this.guestService.update(guest);
+            }
+        }else {
+            //该VIP顾客还不是普通顾客
+            num2 = this.guestService.insert(vip.getGuest());
+            guestId = vip.getGuest().getGuestId();
+        }
+        //2. 添加VIP顾客
         //初始化删除字段
         vip = this.initDel(vip);
-        vip.setVipCard(this.generateVipCard());
-        return this.vipDao.insert(vip);
+        vip.setVipCard(this.generateVipCard(vip));
+        num3 = this.vipDao.insert(vip);
+        return num1 + num2 + num3;
     }
 
     /**
@@ -81,7 +111,7 @@ public class VipServiceImpl implements VipService {
     public Integer batchInsert(List<Vip> vipList) {
         int num = 0;
         for (Vip vip : vipList) {
-            num += this.vipDao.insert(vip);
+            num += this.insert(vip);
         }
         return num;
     }
@@ -154,8 +184,8 @@ public class VipServiceImpl implements VipService {
         return vip;
     }
 
-    private String generateVipCard(){
-        return null;
+    private String generateVipCard(Vip vip){
+        return vip.getGuest().getGuestPhoneNumber();
     }
 
 }

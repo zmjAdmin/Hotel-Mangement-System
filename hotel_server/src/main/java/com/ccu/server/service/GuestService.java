@@ -73,4 +73,12 @@ public interface GuestService {
      */
     Integer batchDelete(Integer[] ids);
 
+    /**
+     * 升级为VIP
+     *
+     * @param guest 顾客实体
+     * @return 受影响行数
+     */
+    Integer upToVip(Guest guest);
+
 }

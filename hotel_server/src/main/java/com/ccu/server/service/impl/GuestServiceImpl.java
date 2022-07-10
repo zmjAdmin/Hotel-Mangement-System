@@ -2,7 +2,9 @@ package com.ccu.server.service.impl;
 
 import com.ccu.server.entity.Guest;
 import com.ccu.server.dao.GuestDao;
+import com.ccu.server.entity.Vip;
 import com.ccu.server.service.GuestService;
+import com.ccu.server.service.VipService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.ccu.server.common.utils.web.PageEntity;
@@ -22,6 +24,9 @@ public class GuestServiceImpl implements GuestService {
 
     @Autowired
     private GuestDao guestDao;
+
+    @Autowired
+    private VipService vipService;
 
     /**
      * 分页查询
@@ -126,6 +131,19 @@ public class GuestServiceImpl implements GuestService {
             num += this.deleteById(id);
         }
         return num;
+    }
+
+    /**
+     * 升级为VIP
+     *
+     * @param guest 顾客实体
+     * @return 受影响行数
+     */
+    @Override
+    public Integer upToVip(Guest guest){
+        Vip vip = new Vip();
+        vip.setGuest(guest);
+        return vipService.insert(vip);
     }
 
     /**

@@ -103,5 +103,16 @@ public class GuestController {
         return AjaxResult.deleteSuccess(this.guestService.batchDelete(ids));
     }
 
+    /**
+     * 升级为VIP
+     *
+     * @param guest 顾客实体
+     * @return 升级结果
+     */
+    @PostMapping("/upToVip")
+    public AjaxResult upToVip(@RequestBody Guest guest){
+        return AjaxResult.insertSuccess(this.guestService.upToVip(guest));
+    }
+
 }
 
