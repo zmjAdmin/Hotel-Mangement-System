@@ -33,6 +33,9 @@ public class VipServiceImpl implements VipService {
      */
     @Override
     public PageEntity<Vip> queryByPage(Vip vip, Integer page, Integer pageSize) {
+        //如果当前用户为超级管理员，查找所有Vip客户
+        //如果当前用户为普通前台用户，只查找未删除的Vip客户
+        vip = this.initDel(vip);
         PageHelper.startPage(page, pageSize);
         PageInfo<Vip> pageInfo = new PageInfo<>(this.vipDao.queryAll(vip));
         return new PageEntity<Vip>(pageInfo.getList(), (long) pageInfo.getPageNum(), pageInfo.getTotal());
@@ -46,7 +49,12 @@ public class VipServiceImpl implements VipService {
      */
     @Override
     public Vip queryById(Integer id) {
-        return this.vipDao.queryById(id);
+        //如果当前用户为超级管理员，继续查找
+        //如果当前用户为普通前台用户，只查找未删除的房间
+        Vip vip = new Vip();
+        vip.setVipId(id);
+        vip = this.initDel(vip);
+        return this.vipDao.queryAll(vip).get(0);
     }
 
     /**
@@ -57,6 +65,9 @@ public class VipServiceImpl implements VipService {
      */
     @Override
     public Integer insert(Vip vip) {
+        //初始化删除字段
+        vip = this.initDel(vip);
+        vip.setVipCard(this.generateVipCard());
         return this.vipDao.insert(vip);
     }
 
@@ -94,7 +105,13 @@ public class VipServiceImpl implements VipService {
      */
     @Override
     public Integer deleteById(Integer id) {
-        return this.vipDao.deleteById(id);
+        //如果当前用户为超级管理员，直接删除
+        //return this.update(roomType);
+        //如果当前用户为普通前台用户，调用更新，进行逻辑删除
+        Vip vip = new Vip();
+        vip.setVipId(id);
+        vip = this.setDel(vip, 1);
+        return this.update(vip);
     }
 
     /**
@@ -107,9 +124,38 @@ public class VipServiceImpl implements VipService {
     public Integer batchDelete(Integer[] ids) {
         int num = 0;
         for (Integer id : ids) {
-            num += this.vipDao.deleteById(id);
+            num += this.deleteById(id);
         }
         return num;
+    }
+
+    /**
+     * 初始化删除字段
+     *
+     * @param vip 房间类型
+     * @return 房间类型实体
+     */
+    private Vip initDel(Vip vip){
+        return this.setDel(vip, 0);
+    }
+
+    /**
+     * 设置删除字段
+     *
+     * @param vip 房间实体
+     * @param del 是否删除
+     * @return 房间实体
+     */
+    private Vip setDel(Vip vip, Integer del){
+        if (vip == null) {
+            vip = new Vip();
+        }
+        vip.setVipDel(del);
+        return vip;
+    }
+
+    private String generateVipCard(){
+        return null;
     }
 
 }
