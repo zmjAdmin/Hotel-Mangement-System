@@ -33,6 +33,9 @@ public class RoomServiceImpl implements RoomService {
      */
     @Override
     public PageEntity<Room> queryByPage(Room room, Integer page, Integer pageSize) {
+        //如果当前用户为超级管理员，查找所有房间
+        //如果当前用户为普通前台用户，只查找未删除的房间
+        room = this.initDel(room);
         PageHelper.startPage(page, pageSize);
         PageInfo<Room> pageInfo = new PageInfo<>(this.roomDao.queryAll(room));
         return new PageEntity<Room>(pageInfo.getList(), (long) pageInfo.getPageNum(), pageInfo.getTotal());
@@ -46,7 +49,12 @@ public class RoomServiceImpl implements RoomService {
      */
     @Override
     public Room queryById(Integer id) {
-        return this.roomDao.queryById(id);
+        //如果当前用户为超级管理员，继续查找
+        //如果当前用户为普通前台用户，只查找未删除的房间
+        Room room = new Room();
+        room.setRoomId(id);
+        room = this.initDel(room);
+        return this.roomDao.queryAll(room).get(0);
     }
 
     /**
@@ -57,6 +65,10 @@ public class RoomServiceImpl implements RoomService {
      */
     @Override
     public Integer insert(Room room) {
+        //初始化房间状态
+        room = this.initRoomStatus(room);
+        //初始化删除字段
+        room = this.initDel(room);
         return this.roomDao.insert(room);
     }
 
@@ -70,7 +82,7 @@ public class RoomServiceImpl implements RoomService {
     public Integer batchInsert(List<Room> roomList) {
         int num = 0;
         for (Room room : roomList) {
-            num += this.roomDao.insert(room);
+            num += this.insert(room);
         }
         return num;
     }
@@ -94,7 +106,13 @@ public class RoomServiceImpl implements RoomService {
      */
     @Override
     public Integer deleteById(Integer id) {
-        return this.roomDao.deleteById(id);
+        //如果当前用户为超级管理员，直接删除
+        //return this.roomDao.deleteById(id);
+        //如果当前用户为普通前台用户，调用更新，进行逻辑删除
+        Room room = new Room();
+        room.setRoomId(id);
+        room = this.setDel(room, 1);
+        return this.update(room);
     }
 
     /**
@@ -107,9 +125,57 @@ public class RoomServiceImpl implements RoomService {
     public Integer batchDelete(Integer[] ids) {
         int num = 0;
         for (Integer id : ids) {
-            num += this.roomDao.deleteById(id);
+            num += this.deleteById(id);
         }
         return num;
+    }
+
+    /**
+     * 初始化删除字段
+     *
+     * @param room 房间实体
+     * @return 房间实体
+     */
+    private Room initDel(Room room){
+        return this.setDel(room, 0);
+    }
+
+    /**
+     * 设置删除字段
+     *
+     * @param room 房间实体
+     * @return 房间实体
+     */
+    private Room setDel(Room room, Integer del){
+        if (room == null) {
+            room = new Room();
+        }
+        room.setRoomDel(del);
+        return room;
+    }
+
+    /**
+     * 初始化房间状态字段
+     *
+     * @param room 房间实体
+     * @return 房间实体
+     */
+    private Room initRoomStatus(Room room){
+        return this.setRoomStatus(room, "空房");
+    }
+
+    /**
+     * 设置房间状态字段
+     *
+     * @param room 房间实体
+     * @return 房间实体
+     */
+    private Room setRoomStatus(Room room, String status){
+        if (room == null) {
+            room = new Room();
+        }
+        room.setRoomStatus(status);
+        return room;
     }
 
 }

@@ -24,7 +24,7 @@
         <sql id="queryAllColumn">
             select
                 #foreach($column in $tableInfo.fullColumn)
-                    `$!column.obj.name`#if($velocityHasNext), #end
+                    $!{tableInfo.obj.name}.`$!column.obj.name`#if($velocityHasNext), #end
                 #end
             from $!{tableInfo.obj.parent.name}.$!tableInfo.obj.name
         </sql>

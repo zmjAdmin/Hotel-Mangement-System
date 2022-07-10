@@ -5,21 +5,35 @@
     <resultMap type="com.ccu.server.entity.Room" id="RoomMap">
         <result property="roomId" column="room_id" jdbcType="INTEGER"/>
         <result property="roomNo" column="room_no" jdbcType="VARCHAR"/>
-        <result property="roomTypeId" column="room_type_id" jdbcType="INTEGER"/>
         <result property="roomPicture" column="room_picture" jdbcType="VARCHAR"/>
         <result property="roomStatus" column="room_status" jdbcType="VARCHAR"/>
         <result property="roomDel" column="room_del" jdbcType="INTEGER"/>
+        <association property="roomType" javaType="com.ccu.server.entity.RoomType">
+            <result property="roomTypeId" column="room_type_id" jdbcType="INTEGER"/>
+            <result property="roomTypeName" column="room_type_name" jdbcType="VARCHAR"/>
+            <result property="roomTypeDescription" column="room_type_description" jdbcType="VARCHAR"/>
+            <result property="dayPrice" column="day_price" jdbcType="NUMERIC"/>
+            <result property="hourPrice" column="hour_price" jdbcType="NUMERIC"/>
+            <result property="roomTypeDel" column="room_type_del" jdbcType="INTEGER"/>
+        </association>
     </resultMap>
 
     <!--查询所有字段-->
     <sql id="queryAllColumn">
-        select `room_id`,
-               `room_no`,
-               `room_type_id`,
-               `room_picture`,
-               `room_status`,
-               `room_del`
+        select room.`room_id`,
+               room.`room_no`,
+               room.`room_picture`,
+               room.`room_status`,
+               room.`room_del`,
+               room_type.`room_type_id`,
+               room_type.`room_type_name`,
+               room_type.`room_type_description`,
+               room_type.`day_price`,
+               room_type.`hour_price`,
+               room_type.`room_type_del`
         from hotel2.room
+        inner join hotel2.room_type
+        on room.room_type_id = room_type.room_type_id
     </sql>
 
     <!--所有的where条件-->
@@ -31,9 +45,6 @@
             <if test="roomNo != null and roomNo != ''">
                 and room_no = #{roomNo}
             </if>
-            <if test="roomTypeId != null">
-                and room_type_id = #{roomTypeId}
-            </if>
             <if test="roomPicture != null and roomPicture != ''">
                 and room_picture = #{roomPicture}
             </if>
@@ -42,6 +53,27 @@
             </if>
             <if test="roomDel != null">
                 and room_del = #{roomDel}
+            </if>
+            <!--房间类型筛选条件-->
+            <if test="roomType != null">
+                <if test="roomType.roomTypeId != null">
+                    and room_type_id = #{roomType.roomTypeId}
+                </if>
+                <if test="roomType.roomTypeName != null and roomType.roomTypeName != ''">
+                    and room_type_name = #{roomType.roomTypeName}
+                </if>
+                <if test="roomType.roomTypeDescription != null and roomType.roomTypeDescription != ''">
+                    and room_type_description = #{roomType.roomTypeDescription}
+                </if>
+                <if test="roomType.dayPrice != null">
+                    and day_price = #{droomType.ayPrice}
+                </if>
+                <if test="roomType.hourPrice != null">
+                    and hour_price = #{roomType.hourPrice}
+                </if>
+                <if test="roomType.roomTypeDel != null">
+                    and room_type_del = #{roomType.roomTypeDel}
+                </if>
             </if>
         </where>
     </sql>
@@ -52,8 +84,11 @@
             <if test="roomNo != null and roomNo != ''">
                 room_no = #{roomNo},
             </if>
-            <if test="roomTypeId != null">
-                room_type_id = #{roomTypeId},
+            <!--房间类型-->
+            <if test="roomType != null">
+                <if test="roomType.roomTypeId != null">
+                    room_type_id = #{roomType.roomTypeId},
+                </if>
             </if>
             <if test="roomPicture != null and roomPicture != ''">
                 room_picture = #{roomPicture},
@@ -82,7 +117,7 @@
     <!--插入一条数据-->
     <insert id="insert" keyProperty="roomId" useGeneratedKeys="true">
         insert into hotel2.room(room_no, room_type_id, room_picture, room_status, room_del)
-        values (#{roomNo}, #{roomTypeId}, #{roomPicture}, #{roomStatus}, #{roomDel})
+        values (#{roomNo}, #{roomType.roomTypeId}, #{roomPicture}, #{roomStatus}, #{roomDel})
     </insert>
 
     <!--通过主键修改数据-->

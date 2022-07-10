@@ -35,7 +35,7 @@ public class RoomTypeServiceImpl implements RoomTypeService {
     public PageEntity<RoomType> queryByPage(RoomType roomType, Integer page, Integer pageSize) {
         //如果当前用户为超级管理员，查找所有房间类型
         //如果当前用户为普通前台用户，只查找未删除的房间类型
-        roomType.setRoomTypeDel(0);
+        roomType = this.initDel(roomType);
         PageHelper.startPage(page, pageSize);
         PageInfo<RoomType> pageInfo = new PageInfo<>(this.roomTypeDao.queryAll(roomType));
         return new PageEntity<RoomType>(pageInfo.getList(), (long) pageInfo.getPageNum(), pageInfo.getTotal());
@@ -49,7 +49,12 @@ public class RoomTypeServiceImpl implements RoomTypeService {
      */
     @Override
     public RoomType queryById(Integer id) {
-        return this.roomTypeDao.queryById(id);
+        //如果当前用户为超级管理员，继续查找
+        //如果当前用户为普通前台用户，只查找未删除的房间
+        RoomType roomType = new RoomType();
+        roomType.setRoomTypeId(id);
+        roomType = this.initDel(roomType);
+        return this.roomTypeDao.queryAll(roomType).get(0);
     }
 
     /**
@@ -60,6 +65,8 @@ public class RoomTypeServiceImpl implements RoomTypeService {
      */
     @Override
     public Integer insert(RoomType roomType) {
+        //初始化删除字段
+        roomType = this.initDel(roomType);
         return this.roomTypeDao.insert(roomType);
     }
 
@@ -102,7 +109,7 @@ public class RoomTypeServiceImpl implements RoomTypeService {
         //如果当前用户为普通前台用户，调用更新，进行逻辑删除
         RoomType roomType = new RoomType();
         roomType.setRoomTypeId(id);
-        roomType.setRoomTypeDel(1);
+        roomType = this.setDel(roomType, 1);
         return this.update(roomType);
     }
 
@@ -116,9 +123,33 @@ public class RoomTypeServiceImpl implements RoomTypeService {
     public Integer batchDelete(Integer[] ids) {
         int num = 0;
         for (Integer id : ids) {
-            num += this.roomTypeDao.deleteById(id);
+            num += this.deleteById(id);
         }
         return num;
+    }
+
+    /**
+     * 初始化删除字段
+     *
+     * @param roomType 房间类型
+     * @return 房间类型实体
+     */
+    private RoomType initDel(RoomType roomType){
+        return this.setDel(roomType, 0);
+    }
+
+    /**
+     * 设置删除字段
+     *
+     * @param roomType 房间实体
+     * @return 房间实体
+     */
+    private RoomType setDel(RoomType roomType, Integer del){
+        if (roomType == null) {
+            roomType = new RoomType();
+        }
+        roomType.setRoomTypeDel(del);
+        return roomType;
     }
 
 }

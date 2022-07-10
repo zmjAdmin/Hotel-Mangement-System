@@ -26,9 +26,9 @@ public class Room {
     private String roomNo;
 
     /**
-     * 房间类型ID
+     * 房间类型
      */
-    private Integer roomTypeId;
+    private RoomType roomType;
 
     /**
      * 房间图片URL
