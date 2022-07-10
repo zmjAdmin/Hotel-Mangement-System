@@ -59,16 +59,16 @@ public class UserController {
         return AjaxResult.insertSuccess(this.userService.insert(user));
     }
 
-    /**
-     * 批量插入数据
-     *
-     * @param userList 实体列表
-     * @return 插入结果
-     */
-    @PostMapping("/batch")
-    public AjaxResult batchInsert(@RequestBody List<User> userList) {
-        return AjaxResult.insertSuccess(this.userService.batchInsert(userList));
-    }
+//    /**
+//     * 批量插入数据
+//     *
+//     * @param userList 实体列表
+//     * @return 插入结果
+//     */
+//    @PostMapping("/batch")
+//    public AjaxResult batchInsert(@RequestBody List<User> userList) {
+//        return AjaxResult.insertSuccess(this.userService.batchInsert(userList));
+//    }
 
     /**
      * 通过主键修改数据

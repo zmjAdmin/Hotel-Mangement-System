@@ -21,9 +21,9 @@ public class Vip {
     private Integer vipId;
 
     /**
-     * 顾客ID
+     * 顾客
      */
-    private Integer guestId;
+    private Guest guest;
 
     /**
      * vip卡号

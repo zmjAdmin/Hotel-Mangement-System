@@ -78,8 +78,8 @@
 
     <!--插入一条数据-->
     <insert id="insert" keyProperty="guestId" useGeneratedKeys="true">
-        insert into hotel2.guest(guest_name, guest_gander, guest_phone_number, guest_del)
-        values (#{guestName}, #{guestGander}, #{guestPhoneNumber}, #{guestDel})
+        insert into hotel2.guest(guest_name, guest_gander, guest_idcard, guest_phone_number, guest_del)
+        values (#{guestName}, #{guestGander}, #{guestIdcard}, #{guestPhoneNumber}, #{guestDel})
     </insert>
 
     <!--通过主键修改数据-->

@@ -59,16 +59,16 @@ public class GuestController {
         return AjaxResult.insertSuccess(this.guestService.insert(guest));
     }
 
-    /**
-     * 批量插入数据
-     *
-     * @param guestList 实体列表
-     * @return 插入结果
-     */
-    @PostMapping("/batch")
-    public AjaxResult batchInsert(@RequestBody List<Guest> guestList) {
-        return AjaxResult.insertSuccess(this.guestService.batchInsert(guestList));
-    }
+//    /**
+//     * 批量插入数据
+//     *
+//     * @param guestList 实体列表
+//     * @return 插入结果
+//     */
+//    @PostMapping("/batch")
+//    public AjaxResult batchInsert(@RequestBody List<Guest> guestList) {
+//        return AjaxResult.insertSuccess(this.guestService.batchInsert(guestList));
+//    }
 
     /**
      * 通过主键修改数据

@@ -142,6 +142,7 @@ public class RoomTypeServiceImpl implements RoomTypeService {
      * 设置删除字段
      *
      * @param roomType 房间实体
+     * @param del 是否删除
      * @return 房间实体
      */
     private RoomType setDel(RoomType roomType, Integer del){

@@ -59,16 +59,16 @@ public class RecordController {
         return AjaxResult.insertSuccess(this.recordService.insert(record));
     }
 
-    /**
-     * 批量插入数据
-     *
-     * @param recordList 实体列表
-     * @return 插入结果
-     */
-    @PostMapping("/batch")
-    public AjaxResult batchInsert(@RequestBody List<Record> recordList) {
-        return AjaxResult.insertSuccess(this.recordService.batchInsert(recordList));
-    }
+//    /**
+//     * 批量插入数据
+//     *
+//     * @param recordList 实体列表
+//     * @return 插入结果
+//     */
+//    @PostMapping("/batch")
+//    public AjaxResult batchInsert(@RequestBody List<Record> recordList) {
+//        return AjaxResult.insertSuccess(this.recordService.batchInsert(recordList));
+//    }
 
     /**
      * 通过主键修改数据

@@ -144,6 +144,7 @@ public class RoomServiceImpl implements RoomService {
      * 设置删除字段
      *
      * @param room 房间实体
+     * @param del 是否删除
      * @return 房间实体
      */
     private Room setDel(Room room, Integer del){
@@ -168,6 +169,7 @@ public class RoomServiceImpl implements RoomService {
      * 设置房间状态字段
      *
      * @param room 房间实体
+     * @param status 房间状态
      * @return 房间实体
      */
     private Room setRoomStatus(Room room, String status){

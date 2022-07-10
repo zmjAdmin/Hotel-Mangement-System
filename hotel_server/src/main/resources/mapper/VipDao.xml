@@ -4,20 +4,35 @@
 
     <resultMap type="com.ccu.server.entity.Vip" id="VipMap">
         <result property="vipId" column="vip_id" jdbcType="INTEGER"/>
-        <result property="guestId" column="guest_id" jdbcType="INTEGER"/>
         <result property="vipCard" column="vip_card" jdbcType="VARCHAR"/>
         <result property="vipIntegral" column="vip_integral" jdbcType="INTEGER"/>
         <result property="vipDel" column="vip_del" jdbcType="INTEGER"/>
+        <association property="guest" javaType="com.ccu.server.entity.Guest">
+            <result property="guestId" column="guest_id" jdbcType="INTEGER"/>
+            <result property="guestName" column="guest_name" jdbcType="VARCHAR"/>
+            <result property="guestGander" column="guest_gander" jdbcType="VARCHAR"/>
+            <result property="guestIdcard" column="guest_idcard" jdbcType="VARCHAR"/>
+            <result property="guestPhoneNumber" column="guest_phone_number" jdbcType="VARCHAR"/>
+            <result property="guestDel" column="guest_del" jdbcType="INTEGER"/>
+        </association>
     </resultMap>
 
     <!--查询所有字段-->
     <sql id="queryAllColumn">
-        select `vip_id`,
-               `guest_id`,
-               `vip_card`,
-               `vip_integral`,
-               `vip_del`
+        select
+                vip.`vip_id`,
+                vip.`vip_card`,
+                vip.`vip_integral`,
+                vip.`vip_del`,
+                guest.`guest_id`,
+                guest.`guest_name`,
+                guest.`guest_gander`,
+                guest.`guest_idcard`,
+                guest.`guest_phone_number`,
+                guest.`guest_del`
         from hotel2.vip
+        left join guest
+        on vip.guest_id = guest.guest_id
     </sql>
 
     <!--所有的where条件-->
@@ -25,9 +40,6 @@
         <where>
             <if test="vipId != null">
                 and vip_id = #{vipId}
-            </if>
-            <if test="guestId != null">
-                and guest_id = #{guestId}
             </if>
             <if test="vipCard != null and vipCard != ''">
                 and vip_card = #{vipCard}
@@ -38,14 +50,35 @@
             <if test="vipDel != null">
                 and vip_del = #{vipDel}
             </if>
+            <!--顾客筛选条件-->
+            <if test="guest != null">
+                <if test="guest.guestId != null">
+                    and guest_id = #{guest.guestId}
+                </if>
+                <if test="guest.guestName != null and guest.guestName != ''">
+                    and guest_name = #{guest.guestName}
+                </if>
+                <if test="guest.guestGander != null and guest.guestGander != ''">
+                    and guest_gander = #{guest.guestGander}
+                </if>
+                <if test="guest.guestIdcard != null and guest.guestIdcard != ''">
+                    and guest_idcard = #{guest.guestIdcard}
+                </if>
+                <if test="guest.guestPhoneNumber != null and guest.guestPhoneNumber != ''">
+                    and guest_phone_number = #{guest.guestPhoneNumber}
+                </if>
+                <if test="guest.guestDel != null">
+                    and guest_del = #{guest.guestDel}
+                </if>
+            </if>
         </where>
     </sql>
 
     <!--除主键外所有set条件-->
     <sql id="setAll">
         <set>
-            <if test="guestId != null">
-                guest_id = #{guestId},
+            <if test="guest.guestId != null">
+                guest_id = #{guest.guestId},
             </if>
             <if test="vipCard != null and vipCard != ''">
                 vip_card = #{vipCard},

@@ -59,16 +59,16 @@ public class VipController {
         return AjaxResult.insertSuccess(this.vipService.insert(vip));
     }
 
-    /**
-     * 批量插入数据
-     *
-     * @param vipList 实体列表
-     * @return 插入结果
-     */
-    @PostMapping("/batch")
-    public AjaxResult batchInsert(@RequestBody List<Vip> vipList) {
-        return AjaxResult.insertSuccess(this.vipService.batchInsert(vipList));
-    }
+//    /**
+//     * 批量插入数据
+//     *
+//     * @param vipList 实体列表
+//     * @return 插入结果
+//     */
+//    @PostMapping("/batch")
+//    public AjaxResult batchInsert(@RequestBody List<Vip> vipList) {
+//        return AjaxResult.insertSuccess(this.vipService.batchInsert(vipList));
+//    }
 
     /**
      * 通过主键修改数据

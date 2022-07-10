@@ -33,6 +33,9 @@ public class GuestServiceImpl implements GuestService {
      */
     @Override
     public PageEntity<Guest> queryByPage(Guest guest, Integer page, Integer pageSize) {
+        //如果当前用户为超级管理员，查找所有顾客
+        //如果当前用户为普通前台用户，只查找未删除的顾客
+        guest = this.initDel(guest);
         PageHelper.startPage(page, pageSize);
         PageInfo<Guest> pageInfo = new PageInfo<>(this.guestDao.queryAll(guest));
         return new PageEntity<Guest>(pageInfo.getList(), (long) pageInfo.getPageNum(), pageInfo.getTotal());
@@ -46,7 +49,12 @@ public class GuestServiceImpl implements GuestService {
      */
     @Override
     public Guest queryById(Integer id) {
-        return this.guestDao.queryById(id);
+        //如果当前用户为超级管理员，继续查找
+        //如果当前用户为普通前台用户，只查找未删除的顾客
+        Guest guest = new Guest();
+        guest.setGuestId(id);
+        guest = this.initDel(guest);
+        return this.guestDao.queryAll(guest).get(0);
     }
 
     /**
@@ -57,6 +65,8 @@ public class GuestServiceImpl implements GuestService {
      */
     @Override
     public Integer insert(Guest guest) {
+        //初始化删除字段
+        guest = this.initDel(guest);
         return this.guestDao.insert(guest);
     }
 
@@ -70,7 +80,7 @@ public class GuestServiceImpl implements GuestService {
     public Integer batchInsert(List<Guest> guestList) {
         int num = 0;
         for (Guest guest : guestList) {
-            num += this.guestDao.insert(guest);
+            num += this.insert(guest);
         }
         return num;
     }
@@ -94,7 +104,13 @@ public class GuestServiceImpl implements GuestService {
      */
     @Override
     public Integer deleteById(Integer id) {
-        return this.guestDao.deleteById(id);
+        //如果当前用户为超级管理员，直接删除
+        //return this.guestDao.deleteById(id);
+        //如果当前用户为普通前台用户，调用更新，进行逻辑删除
+        Guest guest = new Guest();
+        guest.setGuestId(id);
+        guest = this.setDel(guest, 1);
+        return this.update(guest);
     }
 
     /**
@@ -107,9 +123,34 @@ public class GuestServiceImpl implements GuestService {
     public Integer batchDelete(Integer[] ids) {
         int num = 0;
         for (Integer id : ids) {
-            num += this.guestDao.deleteById(id);
+            num += this.deleteById(id);
         }
         return num;
+    }
+
+    /**
+     * 初始化删除字段
+     *
+     * @param guest 房间类型
+     * @return 房间类型实体
+     */
+    private Guest initDel(Guest guest){
+        return this.setDel(guest, 0);
+    }
+
+    /**
+     * 设置删除字段
+     *
+     * @param  guest 房间实体
+     * @param del 是否删除
+     * @return 房间实体
+     */
+    private Guest setDel(Guest guest, Integer del){
+        if (guest == null) {
+            guest = new Guest();
+        }
+        guest.setGuestDel(del);
+        return guest;
     }
 
 }

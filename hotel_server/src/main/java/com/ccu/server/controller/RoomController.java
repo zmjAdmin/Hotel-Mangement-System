@@ -59,16 +59,16 @@ public class RoomController {
         return AjaxResult.insertSuccess(this.roomService.insert(room));
     }
 
-    /**
-     * 批量插入数据
-     *
-     * @param roomList 实体列表
-     * @return 插入结果
-     */
-    @PostMapping("/batch")
-    public AjaxResult batchInsert(@RequestBody List<Room> roomList) {
-        return AjaxResult.insertSuccess(this.roomService.batchInsert(roomList));
-    }
+//    /**
+//     * 批量插入数据
+//     *
+//     * @param roomList 实体列表
+//     * @return 插入结果
+//     */
+//    @PostMapping("/batch")
+//    public AjaxResult batchInsert(@RequestBody List<Room> roomList) {
+//        return AjaxResult.insertSuccess(this.roomService.batchInsert(roomList));
+//    }
 
     /**
      * 通过主键修改数据

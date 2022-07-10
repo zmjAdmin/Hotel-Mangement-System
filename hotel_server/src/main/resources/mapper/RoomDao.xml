@@ -32,7 +32,7 @@
                room_type.`hour_price`,
                room_type.`room_type_del`
         from hotel2.room
-        inner join hotel2.room_type
+        left join hotel2.room_type
         on room.room_type_id = room_type.room_type_id
     </sql>
 

@@ -59,16 +59,16 @@ public class SystemInfoController {
         return AjaxResult.insertSuccess(this.systemInfoService.insert(systemInfo));
     }
 
-    /**
-     * 批量插入数据
-     *
-     * @param systemInfoList 实体列表
-     * @return 插入结果
-     */
-    @PostMapping("/batch")
-    public AjaxResult batchInsert(@RequestBody List<SystemInfo> systemInfoList) {
-        return AjaxResult.insertSuccess(this.systemInfoService.batchInsert(systemInfoList));
-    }
+//    /**
+//     * 批量插入数据
+//     *
+//     * @param systemInfoList 实体列表
+//     * @return 插入结果
+//     */
+//    @PostMapping("/batch")
+//    public AjaxResult batchInsert(@RequestBody List<SystemInfo> systemInfoList) {
+//        return AjaxResult.insertSuccess(this.systemInfoService.batchInsert(systemInfoList));
+//    }
 
     /**
      * 通过主键修改数据
