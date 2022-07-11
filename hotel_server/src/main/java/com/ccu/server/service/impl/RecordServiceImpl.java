@@ -12,10 +12,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * (Record)表服务实现类
+ * 入住记录表(Record)表服务实现类
  *
  * @author zmj
- * @since 2022-07-09 13:46:50
+ * @since 2022-07-11 12:44:29
  */
 @Service
 public class RecordServiceImpl implements RecordService {
@@ -57,6 +57,7 @@ public class RecordServiceImpl implements RecordService {
      */
     @Override
     public Integer insert(Record record) {
+        record = this.initDel(record);
         return this.recordDao.insert(record);
     }
 
@@ -110,6 +111,31 @@ public class RecordServiceImpl implements RecordService {
             num += this.recordDao.deleteById(id);
         }
         return num;
+    }
+
+    /**
+     * 初始化删除字段
+     *
+     * @param record 房间类型
+     * @return 房间类型实体
+     */
+    public Record initDel(Record record){
+        return this.setDel(record, 0);
+    }
+
+    /**
+     * 设置删除字段
+     *
+     * @param record 房间实体
+     * @param del 是否删除
+     * @return 房间实体
+     */
+    public Record setDel(Record record, Integer del){
+        if (record == null) {
+            record = new Record();
+        }
+        record.setRecordDel(del);
+        return record;
     }
 
 }

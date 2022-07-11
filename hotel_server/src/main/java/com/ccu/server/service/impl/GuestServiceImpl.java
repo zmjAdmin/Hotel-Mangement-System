@@ -70,9 +70,25 @@ public class GuestServiceImpl implements GuestService {
      */
     @Override
     public Integer insert(Guest guest) {
-        //初始化删除字段
-        guest = this.initDel(guest);
-        return this.guestDao.insert(guest);
+        int num1 = 0;
+        int num2 = 0;
+        Guest newGuest = new Guest();
+        newGuest.setGuestIdcard(guest.getGuestIdcard());
+        //根据顾客身份证号查询顾客
+        List<Guest> list = this.queryByPage(newGuest, 1, 1).getData();
+        if(list.size() > 0){
+            //该顾客已经是普通顾客了
+            guest.setGuestId(list.get(0).getGuestId());
+            if(this.queryByPage(guest, 1, 1).getData().size() == 0){
+                //该顾客的信息不准确，更新顾客信息
+                num1 = this.update(guest);
+            }
+        }else {
+            //该顾客还不是普通顾客
+            guest = this.initDel(guest);
+            num2 = this.guestDao.insert(guest);
+        }
+        return num1 + num2;
     }
 
     /**

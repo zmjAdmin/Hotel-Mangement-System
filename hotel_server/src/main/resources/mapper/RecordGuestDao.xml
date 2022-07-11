@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccu.server.dao.RecordGuestDao">
+
+    <resultMap type="com.ccu.server.entity.RecordGuest" id="RecordGuestMap">
+        <result property="recordGuestId" column="record_guest_id" jdbcType="INTEGER"/>
+        <association property="record" javaType="com.ccu.server.entity.Record">
+            <result property="recordId" column="record_id" jdbcType="INTEGER"/>
+            <result property="roomId" column="room_id" jdbcType="INTEGER"/>
+            <result property="enterTime" column="enter_time" jdbcType="TIMESTAMP"/>
+            <result property="exitTime" column="exit_time" jdbcType="TIMESTAMP"/>
+            <result property="bookingDuration" column="booking_duration" jdbcType="VARCHAR"/>
+            <result property="cost" column="cost" jdbcType="NUMERIC"/>
+            <result property="bookingTime" column="booking_time" jdbcType="TIMESTAMP"/>
+            <result property="recordDel" column="record_del" jdbcType="INTEGER"/>
+        </association>
+        <association property="guest" javaType="com.ccu.server.entity.Guest">
+            <result property="guestId" column="guest_id" jdbcType="INTEGER"/>
+            <result property="guestName" column="guest_name" jdbcType="VARCHAR"/>
+            <result property="guestGander" column="guest_gander" jdbcType="VARCHAR"/>
+            <result property="guestIdcard" column="guest_idcard" jdbcType="VARCHAR"/>
+            <result property="guestPhoneNumber" column="guest_phone_number" jdbcType="VARCHAR"/>
+            <result property="guestDel" column="guest_del" jdbcType="INTEGER"/>
+        </association>
+    </resultMap>
+
+    <!--查询所有字段-->
+    <sql id="queryAllColumn">
+        select
+               record_guest.`record_guest_id`,
+               record.`record_id`,
+               record.`room_id`,
+               record.`enter_time`,
+               record.`exit_time`,
+               record.`booking_duration`,
+               record.`cost`,
+               record.`booking_time`,
+               record.`record_del`,
+               guest.`guest_id`,
+               guest.`guest_name`,
+               guest.`guest_gander`,
+               guest.`guest_idcard`,
+               guest.`guest_phone_number`,
+               guest.`guest_del`
+        from hotel2.record_guest
+        inner join guest on record_guest.guest_id = guest.guest_id
+        inner join record on record_guest.record_id = record.record_id
+    </sql>
+
+    <!--所有的where条件-->
+    <sql id="whereAll">
+        <where>
+            <if test="recordGuestId != null">
+                and record_guest.record_guest_id = #{recordGuestId}
+            </if>
+            <if test="guest != null">
+                <if test="guest.guestId != null">
+                    and guest.guest_id = #{guest.guestId}
+                </if>
+                <if test="guest.guestName != null and guest.guestName != ''">
+                    and guest.guest_name = #{guest.guestName}
+                </if>
+                <if test="guest.guestGander != null and guest.guestGander != ''">
+                    and guest.guest_gander = #{guest.guestGander}
+                </if>
+                <if test="guest.guestIdcard != null and guest.guestIdcard != ''">
+                    and guest.guest_idcard = #{guest.guestIdcard}
+                </if>
+                <if test="guest.guestPhoneNumber != null and guest.guestPhoneNumber != ''">
+                    and guest.guest_phone_number = #{guest.guestPhoneNumber}
+                </if>
+                <if test="guest.guestDel != null">
+                    and guest.guest_del = #{guest.guestDel}
+                </if>
+            </if>
+            <if test="record != null">
+                <if test="record.recordId != null">
+                    and record_id = #{record.recordId}
+                </if>
+                <if test="record.roomId != null">
+                    and room_id = #{record.roomId}
+                </if>
+                <if test="record.enterTime != null">
+                    and enter_time = #{record.enterTime}
+                </if>
+                <if test="record.exitTime != null">
+                    and exit_time = #{record.exitTime}
+                </if>
+                <if test="record.bookingDuration != null and record.bookingDuration != ''">
+                    and booking_duration = #{record.bookingDuration}
+                </if>
+                <if test="record.cost != null">
+                    and cost = #{record.cost}
+                </if>
+                <if test="record.recordDel != null">
+                    and record_del = #{record.recordDel}
+                </if>
+                <if test="record.bookingTime != null">
+                    and booking_time = #{record.bookingTime}
+                </if>
+            </if>
+        </where>
+    </sql>
+
+    <!--除主键外所有set条件-->
+    <sql id="setAll">
+        <set>
+            <if test="recordId != null">
+                record_id = #{recordId},
+            </if>
+            <if test="guestId != null">
+                guest_id = #{guestId},
+            </if>
+        </set>
+    </sql>
+
+    <!--查询所有数据-->
+    <select id="queryAll" resultMap="RecordGuestMap">
+        <include refid="queryAllColumn"/>
+        <include refid="whereAll"/>
+    </select>
+
+    <!--通过主键查询单条数据-->
+    <select id="queryById" resultMap="RecordGuestMap">
+        <include refid="queryAllColumn"/>
+        where record_guest_id = #{recordGuestId}
+    </select>
+
+    <!--插入一条数据-->
+    <insert id="insert" keyProperty="recordGuestId" useGeneratedKeys="true">
+        insert into hotel2.record_guest(record_id, guest_id)
+        values (#{record.recordId}, #{guest.guestId})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update hotel2.record_guest
+        <include refid="setAll"/>
+        where record_guest_id = #{recordGuestId}
+    </update>
+
+    <!--通过主键删除数据-->
+    <delete id="deleteById">
+        delete
+        from hotel2.record_guest
+        where record_guest_id = #{recordGuestId}
+    </delete>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from record_guest
+        <include refid="whereAll"/>
+    </select>
+
+</mapper>

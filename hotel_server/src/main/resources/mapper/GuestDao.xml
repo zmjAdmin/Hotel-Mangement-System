@@ -13,7 +13,8 @@
 
     <!--查询所有字段-->
     <sql id="queryAllColumn">
-        select guest.`guest_id`,
+        select
+               guest.`guest_id`,
                guest.`guest_name`,
                guest.`guest_gander`,
                guest.`guest_idcard`,

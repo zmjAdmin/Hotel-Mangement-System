@@ -4,25 +4,26 @@
 
     <resultMap type="com.ccu.server.entity.Record" id="RecordMap">
         <result property="recordId" column="record_id" jdbcType="INTEGER"/>
-        <result property="guestId" column="guest_id" jdbcType="INTEGER"/>
         <result property="roomId" column="room_id" jdbcType="INTEGER"/>
-        <result property="enterTime" column="enter_time" jdbcType="VARCHAR"/>
-        <result property="exitTime" column="exit_time" jdbcType="VARCHAR"/>
+        <result property="enterTime" column="enter_time" jdbcType="TIMESTAMP"/>
+        <result property="exitTime" column="exit_time" jdbcType="TIMESTAMP"/>
         <result property="bookingDuration" column="booking_duration" jdbcType="VARCHAR"/>
         <result property="cost" column="cost" jdbcType="NUMERIC"/>
+        <result property="bookingTime" column="booking_time" jdbcType="TIMESTAMP"/>
         <result property="recordDel" column="record_del" jdbcType="INTEGER"/>
     </resultMap>
 
     <!--查询所有字段-->
     <sql id="queryAllColumn">
-        select `record_id`,
-               `guest_id`,
-               `room_id`,
-               `enter_time`,
-               `exit_time`,
-               `booking_duration`,
-               `cost`,
-               `record_del`
+        select
+               record.`record_id`,
+               record.`room_id`,
+               record.`enter_time`,
+               record.`exit_time`,
+               record.`booking_duration`,
+               record.`cost`,
+               record.`booking_time`,
+               record.`record_del`
         from hotel2.record
     </sql>
 
@@ -32,16 +33,13 @@
             <if test="recordId != null">
                 and record_id = #{recordId}
             </if>
-            <if test="guestId != null">
-                and guest_id = #{guestId}
-            </if>
             <if test="roomId != null">
                 and room_id = #{roomId}
             </if>
-            <if test="enterTime != null and enterTime != ''">
+            <if test="enterTime != null">
                 and enter_time = #{enterTime}
             </if>
-            <if test="exitTime != null and exitTime != ''">
+            <if test="exitTime != null">
                 and exit_time = #{exitTime}
             </if>
             <if test="bookingDuration != null and bookingDuration != ''">
@@ -53,22 +51,22 @@
             <if test="recordDel != null">
                 and record_del = #{recordDel}
             </if>
+            <if test="bookingTime != null">
+                and booking_time = #{bookingTime}
+            </if>
         </where>
     </sql>
 
     <!--除主键外所有set条件-->
     <sql id="setAll">
         <set>
-            <if test="guestId != null">
-                guest_id = #{guestId},
-            </if>
             <if test="roomId != null">
                 room_id = #{roomId},
             </if>
-            <if test="enterTime != null and enterTime != ''">
+            <if test="enterTime != null">
                 enter_time = #{enterTime},
             </if>
-            <if test="exitTime != null and exitTime != ''">
+            <if test="exitTime != null">
                 exit_time = #{exitTime},
             </if>
             <if test="bookingDuration != null and bookingDuration != ''">
@@ -79,6 +77,9 @@
             </if>
             <if test="recordDel != null">
                 record_del = #{recordDel},
+            </if>
+            <if test="bookingTime != null">
+                booking_time = #{bookingTime},
             </if>
         </set>
     </sql>
@@ -97,8 +98,8 @@
 
     <!--插入一条数据-->
     <insert id="insert" keyProperty="recordId" useGeneratedKeys="true">
-        insert into hotel2.record(guest_id, room_id, enter_time, exit_time, booking_duration, cost, record_del)
-        values (#{guestId}, #{roomId}, #{enterTime}, #{exitTime}, #{bookingDuration}, #{cost}, #{recordDel})
+        insert into hotel2.record(room_id, enter_time, exit_time, booking_duration, cost, record_del, booking_time)
+        values (#{roomId}, #{enterTime}, #{exitTime}, #{bookingDuration}, #{cost}, #{recordDel}, #{bookingTime})
     </insert>
 
     <!--通过主键修改数据-->

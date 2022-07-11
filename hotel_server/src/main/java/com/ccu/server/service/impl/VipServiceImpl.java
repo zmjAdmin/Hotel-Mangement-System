@@ -1,6 +1,5 @@
 package com.ccu.server.service.impl;
 
-import com.ccu.server.entity.Guest;
 import com.ccu.server.entity.Vip;
 import com.ccu.server.dao.VipDao;
 import com.ccu.server.service.GuestService;
@@ -73,32 +72,32 @@ public class VipServiceImpl implements VipService {
         Integer guestId = null;
         int num1 = 0;
         int num2 = 0;
-        int num3 = 0;
         //1. 添加顾客
-        Guest guest = new Guest();
-        guest.setGuestIdcard(vip.getGuest().getGuestIdcard());
-        //根据顾客身份证号查询顾客
-        List<Guest> list = this.guestService.queryByPage(guest, 1, 1).getData();
-        if(list.size() > 0){
-            //该VIP顾客已经是普通顾客了
-            guestId = list.get(0).getGuestId();
-            if(this.guestService.queryByPage(vip.getGuest(), 1, 1).getData().size() == 0){
-                //该顾客的信息不准确，更新顾客信息
-                guest = vip.getGuest();
-                guest.setGuestId(list.get(0).getGuestId());
-                num1 = this.guestService.update(guest);
-            }
-        }else {
-            //该VIP顾客还不是普通顾客
-            num2 = this.guestService.insert(vip.getGuest());
-            guestId = vip.getGuest().getGuestId();
-        }
+//        Guest guest = new Guest();
+//        guest.setGuestIdcard(vip.getGuest().getGuestIdcard());
+//        //根据顾客身份证号查询顾客
+//        List<Guest> list = this.guestService.queryByPage(guest, 1, 1).getData();
+//        if(list.size() > 0){
+//            //该VIP顾客已经是普通顾客了
+//            guestId = list.get(0).getGuestId();
+//            if(this.guestService.queryByPage(vip.getGuest(), 1, 1).getData().size() == 0){
+//                //该顾客的信息不准确，更新顾客信息
+//                guest = vip.getGuest();
+//                guest.setGuestId(list.get(0).getGuestId());
+//                num1 = this.guestService.update(guest);
+//            }
+//        }else {
+//            //该VIP顾客还不是普通顾客
+//            num2 = this.guestService.insert(vip.getGuest());
+//            guestId = vip.getGuest().getGuestId();
+//        }
+        num1 = this.guestService.insert(vip.getGuest());
         //2. 添加VIP顾客
         //初始化删除字段
         vip = this.initDel(vip);
         vip.setVipCard(this.generateVipCard(vip));
-        num3 = this.vipDao.insert(vip);
-        return num1 + num2 + num3;
+        num2 = this.vipDao.insert(vip);
+        return num1 + num2;
     }
 
     /**

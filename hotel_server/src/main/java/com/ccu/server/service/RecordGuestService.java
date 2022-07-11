@@ -1,29 +1,30 @@
 package com.ccu.server.service;
 
-import com.ccu.server.entity.Record;
+import com.ccu.server.entity.RecordGuest;
 import com.ccu.server.common.utils.web.PageEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
 /**
- * 入住记录表(Record)表服务接口
+ * 入住记录-顾客(RecordGuest)表服务接口
  *
  * @author zmj
- * @since 2022-07-11 12:44:29
+ * @since 2022-07-11 12:27:50
  */
 @Transactional
-public interface RecordService {
+public interface RecordGuestService {
 
     /**
      * 分页查询
      *
-     * @param record   筛选条件
-     * @param page     当前页
-     * @param pageSize 每页的条数
+     * @param recordGuest 筛选条件
+     * @param page        当前页
+     * @param pageSize    每页的条数
      * @return 查询结果
      */
-    PageEntity<Record> queryByPage(Record record, Integer page, Integer pageSize);
+    PageEntity<RecordGuest> queryByPage(RecordGuest recordGuest, Integer page, Integer pageSize);
 
     /**
      * 通过主键查询单条数据
@@ -31,31 +32,31 @@ public interface RecordService {
      * @param id 主键
      * @return 单条数据
      */
-    Record queryById(Integer id);
+    RecordGuest queryById(Integer id);
 
     /**
      * 插入一条数据
      *
-     * @param record 实例对象
+     * @param recordGuest 实例对象
      * @return 受影响行数
      */
-    Integer insert(Record record);
+    Integer insert(RecordGuest recordGuest);
 
     /**
      * 批量插入数据
      *
-     * @param recordList 实体列表
+     * @param recordGuestList 实体列表
      * @return 受影响行数
      */
-    Integer batchInsert(List<Record> recordList);
+    Integer batchInsert(List<RecordGuest> recordGuestList);
 
     /**
      * 修改数据
      *
-     * @param record 实例对象
+     * @param recordGuest 实例对象
      * @return 受影响行数
      */
-    Integer update(Record record);
+    Integer update(RecordGuest recordGuest);
 
     /**
      * 通过主键删除数据
@@ -72,5 +73,13 @@ public interface RecordService {
      * @return 受影响行数
      */
     Integer batchDelete(Integer[] ids);
+
+    /**
+     * 入住登记
+     *
+     * @param recordGuests 入住记录-顾客实体
+     * @return 受影响行数
+     */
+    Integer checkIn(RecordGuest[] recordGuests);
 
 }

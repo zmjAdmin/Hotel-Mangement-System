@@ -4,11 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
+
 /**
- * (Record)实体类
+ * 入住记录表(Record)实体类
  *
  * @author zmj
- * @since 2022-07-09 13:46:50
+ * @since 2022-07-11 12:44:29
  */
 @Data
 @NoArgsConstructor
@@ -16,14 +18,9 @@ import lombok.NoArgsConstructor;
 public class Record {
 
     /**
-     * 记录ID
+     * 入住记录ID
      */
     private Integer recordId;
-
-    /**
-     * 顾客ID
-     */
-    private Integer guestId;
 
     /**
      * 房间ID
@@ -31,17 +28,17 @@ public class Record {
     private Integer roomId;
 
     /**
-     * 进入房间时间
+     * 入住时间
      */
-    private String enterTime;
+    private Timestamp enterTime;
 
     /**
-     * 退房时间，默认“待定”
+     * 离开时间
      */
-    private String exitTime;
+    private Timestamp exitTime;
 
     /**
-     * 预定时长
+     * 预计居住时长
      */
     private String bookingDuration;
 
@@ -51,7 +48,12 @@ public class Record {
     private Double cost;
 
     /**
-     * 是否删除，默认0，0为未删除
+     * 预定时间
+     */
+    private Timestamp bookingTime;
+
+    /**
+     * 逻辑删除
      */
     private Integer recordDel;
 
