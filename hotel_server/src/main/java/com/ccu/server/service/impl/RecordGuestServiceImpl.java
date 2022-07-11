@@ -27,9 +27,6 @@ public class RecordGuestServiceImpl implements RecordGuestService {
     private RecordGuestDao recordGuestDao;
 
     @Autowired
-    private RecordServiceImpl recordServiceImpl;
-
-    @Autowired
     private RecordService recordService;
 
     @Autowired
@@ -45,7 +42,8 @@ public class RecordGuestServiceImpl implements RecordGuestService {
      */
     @Override
     public PageEntity<RecordGuest> queryByPage(RecordGuest recordGuest, Integer page, Integer pageSize) {
-        recordGuest.setRecord(recordServiceImpl.initDel(recordGuest.getRecord()));
+        recordGuest.getRecord().setRecordDel(1);
+        //recordGuest.setRecord(recordServiceImpl.initDel(recordGuest.getRecord()));
         PageHelper.startPage(page, pageSize);
         PageInfo<RecordGuest> pageInfo = new PageInfo<>(this.recordGuestDao.queryAll(recordGuest));
         return new PageEntity<RecordGuest>(pageInfo.getList(), (long) pageInfo.getPageNum(), pageInfo.getTotal());
@@ -111,7 +109,7 @@ public class RecordGuestServiceImpl implements RecordGuestService {
     public Integer deleteById(Integer id) {
         Record record = new Record();
         record.setRecordId(id);
-        record = this.recordServiceImpl.setDel(record, 1);
+        record.setRecordDel(1);
         return this.recordService.update(record);
     }
 

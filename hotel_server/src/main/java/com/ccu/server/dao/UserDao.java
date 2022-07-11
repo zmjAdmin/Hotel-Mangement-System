@@ -32,6 +32,14 @@ public interface UserDao {
     User queryById(@Param("id") Integer id);
 
     /**
+     * 根据用户名查找用户
+     *
+     * @param username 用户名
+     * @return 用户实体
+     */
+    User queryByUsername(String username);
+
+    /**
      * 插入一条数据
      *
      * @param user 实例对象

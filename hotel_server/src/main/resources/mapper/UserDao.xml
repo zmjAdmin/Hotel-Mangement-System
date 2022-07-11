@@ -71,6 +71,12 @@
         where user_id = #{userId}
     </select>
 
+    <!--通过用户名查找用户-->
+    <select id="queryByUsername" resultMap="UserMap">
+        <include refid="queryAllColumn"/>
+        where username = #{username}
+    </select>
+
     <!--插入一条数据-->
     <insert id="insert" keyProperty="userId" useGeneratedKeys="true">
         insert into hotel2.user(username, password, user_status, user_del)

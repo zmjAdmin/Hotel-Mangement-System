@@ -1,5 +1,6 @@
 package com.ccu.server.service.impl;
 
+import com.ccu.server.dao.VipDao;
 import com.ccu.server.entity.Guest;
 import com.ccu.server.dao.GuestDao;
 import com.ccu.server.entity.Vip;
@@ -26,7 +27,7 @@ public class GuestServiceImpl implements GuestService {
     private GuestDao guestDao;
 
     @Autowired
-    private VipService vipService;
+    private VipDao vipDao;
 
     /**
      * 分页查询
@@ -159,7 +160,7 @@ public class GuestServiceImpl implements GuestService {
     public Integer upToVip(Guest guest){
         Vip vip = new Vip();
         vip.setGuest(guest);
-        return vipService.insert(vip);
+        return vipDao.insert(vip);
     }
 
     /**

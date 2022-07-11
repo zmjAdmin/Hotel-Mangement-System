@@ -11,7 +11,7 @@
  Target Server Version : 50736
  File Encoding         : 65001
 
- Date: 11/07/2022 00:13:50
+ Date: 11/07/2022 19:11:00
 */
 
 SET NAMES utf8mb4;
@@ -29,27 +29,40 @@ CREATE TABLE `guest`  (
   `guest_phone_number` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '顾客手机号码',
   `guest_del` int(1) NULL DEFAULT 0 COMMENT '逻辑删除',
   PRIMARY KEY (`guest_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Table structure for record
 -- ----------------------------
 DROP TABLE IF EXISTS `record`;
 CREATE TABLE `record`  (
-  `record_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '记录ID',
-  `guest_id` int(11) NULL DEFAULT NULL COMMENT '顾客ID',
+  `record_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '入住记录ID',
   `room_id` int(11) NULL DEFAULT NULL COMMENT '房间ID',
-  `enter_time` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '进入房间时间',
-  `exit_time` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '待定' COMMENT '退房时间，默认“待定”',
-  `booking_duration` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '预定时长',
+  `enter_time` datetime(6) NULL DEFAULT NULL COMMENT '入住时间',
+  `exit_time` datetime(6) NULL DEFAULT NULL COMMENT '离开时间',
+  `booking_time` datetime(6) NULL DEFAULT NULL COMMENT '预定时间',
+  `booking_duration` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '预计居住时长',
   `cost` double(10, 2) NULL DEFAULT NULL COMMENT '消费金额',
-  `record_del` int(255) NULL DEFAULT 0 COMMENT '是否删除，默认0，0为未删除',
+  `record_del` int(11) UNSIGNED NULL DEFAULT 0 COMMENT '逻辑删除',
   PRIMARY KEY (`record_id`) USING BTREE,
-  INDEX `guest_id`(`guest_id`) USING BTREE,
   INDEX `room_id`(`room_id`) USING BTREE,
-  CONSTRAINT `record_ibfk_1` FOREIGN KEY (`guest_id`) REFERENCES `guest` (`guest_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `record_ibfk_2` FOREIGN KEY (`room_id`) REFERENCES `room` (`room_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
+  CONSTRAINT `record_ibfk_1` FOREIGN KEY (`room_id`) REFERENCES `room` (`room_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '入住记录表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for record_guest
+-- ----------------------------
+DROP TABLE IF EXISTS `record_guest`;
+CREATE TABLE `record_guest`  (
+  `record_guest_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `record_id` int(11) NULL DEFAULT NULL COMMENT '入住记录ID',
+  `guest_id` int(11) NULL DEFAULT NULL COMMENT '顾客ID',
+  PRIMARY KEY (`record_guest_id`) USING BTREE,
+  INDEX `record_id`(`record_id`) USING BTREE,
+  INDEX `guest_id`(`guest_id`) USING BTREE,
+  CONSTRAINT `record_guest_ibfk_1` FOREIGN KEY (`record_id`) REFERENCES `record` (`record_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `record_guest_ibfk_2` FOREIGN KEY (`guest_id`) REFERENCES `guest` (`guest_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '入住记录-顾客' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for room
@@ -119,6 +132,6 @@ CREATE TABLE `vip`  (
   PRIMARY KEY (`vip_id`) USING BTREE,
   INDEX `guest_id`(`guest_id`) USING BTREE,
   CONSTRAINT `vip_ibfk_1` FOREIGN KEY (`guest_id`) REFERENCES `guest` (`guest_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 SET FOREIGN_KEY_CHECKS = 1;
