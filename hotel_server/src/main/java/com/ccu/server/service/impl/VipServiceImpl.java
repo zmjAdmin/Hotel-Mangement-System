@@ -100,20 +100,20 @@ public class VipServiceImpl implements VipService {
         return num1 + num2;
     }
 
-//    /**
-//     * 批量插入数据
-//     *
-//     * @param vipList 实体列表
-//     * @return 受影响行数
-//     */
-//    @Override
-//    public Integer batchInsert(List<Vip> vipList) {
-//        int num = 0;
-//        for (Vip vip : vipList) {
-//            num += this.insert(vip);
-//        }
-//        return num;
-//    }
+    /**
+     * 批量插入数据
+     *
+     * @param vipList 实体列表
+     * @return 受影响行数
+     */
+    @Override
+    public Integer batchInsert(List<Vip> vipList) {
+        int num = 0;
+        for (Vip vip : vipList) {
+            num += this.insert(vip);
+        }
+        return num;
+    }
 
     /**
      * 通过主键修改数据

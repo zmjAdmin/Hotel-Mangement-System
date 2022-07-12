@@ -41,13 +41,13 @@ public interface VipService {
      */
     Integer insert(Vip vip);
 
-//    /**
-//     * 批量插入数据
-//     *
-//     * @param vipList 实体列表
-//     * @return 受影响行数
-//     */
-//    Integer batchInsert(List<Vip> vipList);
+    /**
+     * 批量插入数据
+     *
+     * @param vipList 实体列表
+     * @return 受影响行数
+     */
+    Integer batchInsert(List<Vip> vipList);
 
     /**
      * 修改数据
