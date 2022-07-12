@@ -3,6 +3,7 @@ import qs from "qs"
 const BASE_URL = "/api"
 
 const ROOM_TYPE_URL = BASE_URL + "/roomType"
+const ROOM_URL = BASE_URL + "/room"
 
 //获取登录url
 function getLoginUrl(){
@@ -34,12 +35,20 @@ function getBatchDelRoomTypeUrl(){
     return ROOM_TYPE_URL + "/batch"
 }
 
+//获取房间列表
+function getRoomListUrl(page, pageSize, queryCriteria){
+    return ROOM_URL + "/" + page + "/" + pageSize + "?" + qs.stringify(queryCriteria)
+}
+
 export {
     getLoginUrl,
+
     getRoomTypeByIdUrl,
     getAddRoomTypeUrl,
     getRoomTypeListUrl,
     getUpdateRoomTypeUrl,
     getDelRoomTypeUrl,
-    getBatchDelRoomTypeUrl
+    getBatchDelRoomTypeUrl,
+
+    getRoomListUrl
 }

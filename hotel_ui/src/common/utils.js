@@ -20,5 +20,5 @@ function delConfirm(msg, callback){
 
 export {
     getSpecificAttr,
-    delConfirm
+    delConfirm,
 }

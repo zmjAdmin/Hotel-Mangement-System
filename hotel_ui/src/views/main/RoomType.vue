@@ -206,6 +206,17 @@ export default {
         formData: {},
         flag: 0,
         title: "",
+        rules: {
+          roomTypeName: [
+            { required: true, message: '请输入房间类型名称', trigger: 'blur' }
+          ],
+          dayPrice: [
+            { required: true, message: '请输入日价格', trigger: 'blur' }
+          ],
+          hourPrice: [
+            { required: true, message: '请输入4小时价格', trigger: 'blur' }
+          ]
+        }
       }
     }
   },
