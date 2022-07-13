@@ -41,13 +41,13 @@ public interface RoomService {
      */
     Integer insert(Room room);
 
-    /**
-     * 批量插入数据
-     *
-     * @param roomList 实体列表
-     * @return 受影响行数
-     */
-    Integer batchInsert(List<Room> roomList);
+//    /**
+//     * 批量插入数据
+//     *
+//     * @param roomList 实体列表
+//     * @return 受影响行数
+//     */
+//    Integer batchInsert(List<Room> roomList);
 
     /**
      * 修改数据
