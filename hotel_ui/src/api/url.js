@@ -54,6 +54,10 @@ function getVipListUrl(page, pageSize, queryCriteria){
     })
 }
 
+function getLogoutUrl(){
+    return BASE_URL + "/logout"
+}
+
 export {
     getLoginUrl,
 
@@ -68,5 +72,7 @@ export {
 
     getGuestListUrl,
 
-    getVipListUrl
+    getVipListUrl,
+
+    getLogoutUrl
 }

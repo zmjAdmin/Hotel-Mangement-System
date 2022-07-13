@@ -55,7 +55,7 @@
             </div>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>个人中心</el-dropdown-item>
-              <el-dropdown-item>退出登录</el-dropdown-item>
+              <el-dropdown-item><div @click="logout()">退出登录</div></el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </el-header>
@@ -69,8 +69,22 @@
 </template>
 
 <script>
+import axios from "@/api/http";
+import { getLogoutUrl } from "@/api/url";
+import msgbox from "@/common/msgbox";
+
 export default {
-  name: "Main"
+  name: "Main",
+  methods: {
+    logout(){
+      console.log("lalala")
+      axios.post(getLogoutUrl())
+        .then(response => {
+          msgbox(response)
+          this.$router.push("/login")
+        })
+    }
+  }
 }
 </script>
 
