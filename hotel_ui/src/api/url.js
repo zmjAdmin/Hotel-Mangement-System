@@ -5,6 +5,7 @@ const BASE_URL = "/api"
 const ROOM_TYPE_URL = BASE_URL + "/roomType"
 const ROOM_URL = BASE_URL + "/room"
 const GUEST_URL = BASE_URL + "/guest"
+const VIP_URL = BASE_URL + "/vip"
 
 //获取登录url
 function getLoginUrl(){
@@ -41,8 +42,16 @@ function getRoomListUrl(page, pageSize, queryCriteria){
     return ROOM_URL + "/" + page + "/" + pageSize + "?" + qs.stringify(queryCriteria)
 }
 
+//获取顾客列表
 function getGuestListUrl(page, pageSize, queryCriteria){
     return GUEST_URL + "/" + page + "/" + pageSize + "?" + qs.stringify(queryCriteria)
+}
+
+//获取VIP顾客列表
+function getVipListUrl(page, pageSize, queryCriteria){
+    return VIP_URL + "/" + page + "/" + pageSize + "?" + qs.stringify(queryCriteria, {
+        allowDots: true
+    })
 }
 
 export {
@@ -57,5 +66,7 @@ export {
 
     getRoomListUrl,
 
-    getGuestListUrl
+    getGuestListUrl,
+
+    getVipListUrl
 }

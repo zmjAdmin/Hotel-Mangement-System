@@ -34,6 +34,7 @@ public class RecordGuestController {
      */
     @GetMapping("/{page}/{pageSize}")
     public AjaxResult queryByPage(RecordGuest recordGuest, @PathVariable("page") Integer page, @PathVariable("pageSize") Integer pageSize) {
+        System.out.println(recordGuest);
         return AjaxResult.querySuccess(this.recordGuestService.queryByPage(recordGuest, page, pageSize));
     }
 

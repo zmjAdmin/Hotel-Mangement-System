@@ -4,11 +4,11 @@
     <!--搜索区域-->
     <el-form :inline="true">
       <el-form-item
-          label="房间号"
+          label="姓名"
       >
         <el-input
-            placeholder="请输入房间号"
-            v-model="formData.roomNo"
+            placeholder="请输入姓名"
+            v-model="formData.guest.guestId"
         ></el-input>
       </el-form-item>
       <el-form-item
@@ -17,7 +17,16 @@
       >
         <el-input
             placeholder="请输入房间类型"
-            v-model="formData.roomTypeName"
+            v-model="formData.record.room.roomType.roomTypeName"
+        ></el-input>
+      </el-form-item>
+      <el-form-item
+          style="margin-left: 40px"
+          label="房间号"
+      >
+        <el-input
+            placeholder="请输入房间号"
+            v-model="formData.record.room.roomNo"
         ></el-input>
       </el-form-item>
       <el-button
@@ -59,7 +68,7 @@
           icon="el-icon-plus"
           :disabled="operate.addDisabled"
           @click="addRoomType"
-      >添加
+      >入住登记
       </el-button>
     </div>
 
@@ -81,18 +90,28 @@
             width="50">
         </el-table-column>
         <el-table-column
-            prop="roomNo"
-            label="房间号"
+            prop="guest.guestName"
+            label="姓名"
         >
         </el-table-column>
         <el-table-column
-            prop="roomType.roomTypeName"
+            prop="record.room.roomType.roomTypeName"
             label="房间类型"
         >
         </el-table-column>
         <el-table-column
-            prop="roomStatus"
-            label="房间状态"
+            prop="record.room.roomNo"
+            label="房间号"
+            show-overflow-tooltip>
+        </el-table-column>
+        <el-table-column
+            prop="record.enterTime"
+            label="入住时间"
+            show-overflow-tooltip>
+        </el-table-column>
+        <el-table-column
+            prop="record.cost"
+            label="消费"
             show-overflow-tooltip>
         </el-table-column>
         <el-table-column
@@ -131,16 +150,26 @@
 </template>
 
 <script>
-import msgbox from "@/common/msgbox";
-import axios from "@/api/http"
-import { getRoomListUrl } from "@/api/url"
+// import msgbox from "@/common/msgbox";
+// import msgbox from "@/common/msgbox";
+// import axios from "@/api/http"
+// import { getRoomListUrl } from "@/api/url"
 export default {
   name: "Record",
   data(){
     return {
       formData: {
-        roomNo: "",
-        roomTypeName: ""
+        record: {
+          room: {
+            roomNo: "",
+            roomType: {
+              roomTypeName: ""
+            }
+          }
+        },
+        guest: {
+          guestName: ""
+        }
       },
       operate: {
         editDisabled: true,
@@ -148,7 +177,23 @@ export default {
         addDisabled: false
       },
       selected: [],
-      tableData: [],
+      tableData: [
+        {
+          record: {
+            enterTime: "2022-07-12 11:11:45",
+            cost: 229,
+            room: {
+              roomNo: 204,
+              roomType: {
+                roomTypeName: "豪华大床房"
+              }
+            }
+          },
+          guest: {
+            guestName: "小闫"
+          }
+        }
+      ],
       //分页
       pagination: {
         currentPage: 1,
@@ -159,17 +204,17 @@ export default {
   },
   methods: {
     getList(){
-      axios.get(getRoomListUrl(this.pagination.currentPage, this.pagination.pageSize, this.formData))
-          .then((response) => {
-            this.tableData = response.data.data.data
-            if(this.tableData.length === 0 && this.pagination.currentPage > 1){
-              this.pagination.currentPage -= 1
-              this.getList()
-            }else {
-              this.pagination.total = response.data.data.total
-              msgbox(response)
-            }
-          })
+      // axios.get(getRoomListUrl(this.pagination.currentPage, this.pagination.pageSize, this.formData))
+      //     .then((response) => {
+      //       this.tableData = response.data.data.data
+      //       if(this.tableData.length === 0 && this.pagination.currentPage > 1){
+      //         this.pagination.currentPage -= 1
+      //         this.getList()
+      //       }else {
+      //         this.pagination.total = response.data.data.total
+      //         msgbox(response)
+      //       }
+      //     })
     },
     //搜索区域
     search(){

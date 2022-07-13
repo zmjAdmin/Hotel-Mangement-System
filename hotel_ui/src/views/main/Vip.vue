@@ -4,20 +4,20 @@
     <!--搜索区域-->
     <el-form :inline="true">
       <el-form-item
-          label="房间号"
+          label="姓名"
       >
         <el-input
-            placeholder="请输入房间号"
-            v-model="formData.roomNo"
+            placeholder="请输入姓名"
+            v-model="formData.guest.guestName"
         ></el-input>
       </el-form-item>
       <el-form-item
           style="margin-left: 40px"
-          label="房间类型"
+          label="VIP卡号"
       >
         <el-input
-            placeholder="请输入房间类型"
-            v-model="formData.roomTypeName"
+            placeholder="请输入VIP卡号"
+            v-model="formData.vipcard"
         ></el-input>
       </el-form-item>
       <el-button
@@ -81,18 +81,23 @@
             width="50">
         </el-table-column>
         <el-table-column
-            prop="roomNo"
-            label="房间号"
+            prop="guest.guestName"
+            label="姓名"
         >
         </el-table-column>
         <el-table-column
-            prop="roomType.roomTypeName"
-            label="房间类型"
+            prop="guest.guestGander"
+            label="性别"
         >
         </el-table-column>
         <el-table-column
-            prop="roomStatus"
-            label="房间状态"
+            prop="vipCard"
+            label="VIP卡号"
+            show-overflow-tooltip>
+        </el-table-column>
+        <el-table-column
+            prop="vipIntegral"
+            label="积分"
             show-overflow-tooltip>
         </el-table-column>
         <el-table-column
@@ -102,12 +107,12 @@
           <template slot-scope="scope">
             <span
                 style="text-decoration: underline; color: #1890ff; cursor: pointer"
-                @click="updateHandler(scope.row.roomId)"
+                @click="updateHandler(scope.row.vipId)"
             ><i class="el-icon-edit"></i>&nbsp;修改 / 详情</span>
             &nbsp;&nbsp;&nbsp;
             <span
                 style="text-decoration: underline; color: red; cursor: pointer"
-                @click="deleteHandler(scope.row.roomId)"
+                @click="deleteHandler(scope.row.vipId)"
             ><i class="el-icon-delete"></i>&nbsp;删除</span>
           </template>
         </el-table-column>
@@ -133,14 +138,16 @@
 <script>
 import msgbox from "@/common/msgbox";
 import axios from "@/api/http"
-import { getRoomListUrl } from "@/api/url"
+import { getVipListUrl } from "@/api/url"
 export default {
   name: "Vip",
   data(){
     return {
       formData: {
-        roomNo: "",
-        roomTypeName: ""
+        guest: {
+          guestName: ""
+        },
+        vipCard: ""
       },
       operate: {
         editDisabled: true,
@@ -159,7 +166,7 @@ export default {
   },
   methods: {
     getList(){
-      axios.get(getRoomListUrl(this.pagination.currentPage, this.pagination.pageSize, this.formData))
+      axios.get(getVipListUrl(this.pagination.currentPage, this.pagination.pageSize, this.formData))
           .then((response) => {
             this.tableData = response.data.data.data
             if(this.tableData.length === 0 && this.pagination.currentPage > 1){

@@ -42,7 +42,14 @@ public class RecordGuestServiceImpl implements RecordGuestService {
      */
     @Override
     public PageEntity<RecordGuest> queryByPage(RecordGuest recordGuest, Integer page, Integer pageSize) {
-        recordGuest.getRecord().setRecordDel(1);
+        if(recordGuest == null){
+            recordGuest = new RecordGuest();
+        }
+        if(recordGuest.getRecord() == null){
+            Record record = new Record();
+            recordGuest.setRecord(record);
+        }
+        recordGuest.getRecord().setRecordDel(0);
         //recordGuest.setRecord(recordServiceImpl.initDel(recordGuest.getRecord()));
         PageHelper.startPage(page, pageSize);
         PageInfo<RecordGuest> pageInfo = new PageInfo<>(this.recordGuestDao.queryAll(recordGuest));
