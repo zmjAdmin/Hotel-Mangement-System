@@ -41,13 +41,13 @@ public interface RecordService {
      */
     Integer insert(Record record);
 
-    /**
-     * 批量插入数据
-     *
-     * @param recordList 实体列表
-     * @return 受影响行数
-     */
-    Integer batchInsert(List<Record> recordList);
+//    /**
+//     * 批量插入数据
+//     *
+//     * @param recordList 实体列表
+//     * @return 受影响行数
+//     */
+//    Integer batchInsert(List<Record> recordList);
 
     /**
      * 修改数据

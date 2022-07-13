@@ -61,20 +61,20 @@ public class RecordServiceImpl implements RecordService {
         return this.recordDao.insert(record);
     }
 
-    /**
-     * 批量插入数据
-     *
-     * @param recordList 实体列表
-     * @return 受影响行数
-     */
-    @Override
-    public Integer batchInsert(List<Record> recordList) {
-        int num = 0;
-        for (Record record : recordList) {
-            num += this.recordDao.insert(record);
-        }
-        return num;
-    }
+//    /**
+//     * 批量插入数据
+//     *
+//     * @param recordList 实体列表
+//     * @return 受影响行数
+//     */
+//    @Override
+//    public Integer batchInsert(List<Record> recordList) {
+//        int num = 0;
+//        for (Record record : recordList) {
+//            num += this.recordDao.insert(record);
+//        }
+//        return num;
+//    }
 
     /**
      * 通过主键修改数据
