@@ -41,13 +41,13 @@ public interface RoomTypeService {
      */
     Integer insert(RoomType roomType);
 
-    /**
-     * 批量插入数据
-     *
-     * @param roomTypeList 实体列表
-     * @return 受影响行数
-     */
-    Integer batchInsert(List<RoomType> roomTypeList);
+//    /**
+//     * 批量插入数据
+//     *
+//     * @param roomTypeList 实体列表
+//     * @return 受影响行数
+//     */
+//    Integer batchInsert(List<RoomType> roomTypeList);
 
     /**
      * 修改数据
