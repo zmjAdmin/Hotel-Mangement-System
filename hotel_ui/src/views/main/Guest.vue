@@ -4,20 +4,29 @@
     <!--搜索区域-->
     <el-form :inline="true">
       <el-form-item
-          label="房间号"
+          label="顾客姓名"
       >
         <el-input
-            placeholder="请输入房间号"
-            v-model="formData.roomNo"
+            placeholder="请输入顾客姓名"
+            v-model="formData.guestName"
         ></el-input>
       </el-form-item>
       <el-form-item
           style="margin-left: 40px"
-          label="房间类型"
+          label="性别"
       >
         <el-input
-            placeholder="请输入房间类型"
-            v-model="formData.roomTypeName"
+            placeholder="请输入性别"
+            v-model="formData.guestGander"
+        ></el-input>
+      </el-form-item>
+      <el-form-item
+          style="margin-left: 40px"
+          label="手机号码"
+      >
+        <el-input
+            placeholder="请输入手机号码"
+            v-model="formData.guestPhoneNumber"
         ></el-input>
       </el-form-item>
       <el-button
@@ -81,33 +90,38 @@
             width="50">
         </el-table-column>
         <el-table-column
-            prop="roomNo"
-            label="房间号"
+            prop="guestName"
+            label="姓名"
         >
         </el-table-column>
         <el-table-column
-            prop="roomType.roomTypeName"
-            label="房间类型"
+            prop="guestGander"
+            label="性别"
         >
         </el-table-column>
         <el-table-column
-            prop="roomStatus"
-            label="房间状态"
+            prop="guestPhoneNumber"
+            label="电话号码"
             show-overflow-tooltip>
         </el-table-column>
         <el-table-column
             label="操作"
-            show-overflow-tooltip
+            width="300"
         >
           <template slot-scope="scope">
             <span
                 style="text-decoration: underline; color: #1890ff; cursor: pointer"
-                @click="updateHandler(scope.row.roomId)"
+                @click="updateHandler(scope.row.guestId)"
+            ><i class="el-icon-top"></i>&nbsp;升级为VIP</span>
+            &nbsp;&nbsp;&nbsp;
+            <span
+                style="text-decoration: underline; color: #1890ff; cursor: pointer"
+                @click="updateHandler(scope.row.guestId)"
             ><i class="el-icon-edit"></i>&nbsp;修改 / 详情</span>
             &nbsp;&nbsp;&nbsp;
             <span
                 style="text-decoration: underline; color: red; cursor: pointer"
-                @click="deleteHandler(scope.row.roomId)"
+                @click="deleteHandler(scope.row.guestId)"
             ><i class="el-icon-delete"></i>&nbsp;删除</span>
           </template>
         </el-table-column>
@@ -133,14 +147,15 @@
 <script>
 import msgbox from "@/common/msgbox";
 import axios from "@/api/http"
-import { getRoomListUrl } from "@/api/url"
+import { getGuestListUrl } from "@/api/url"
 export default {
   name: "Guest",
   data(){
     return {
       formData: {
-        roomNo: "",
-        roomTypeName: ""
+        guestName: "",
+        guestGander: "",
+        guestPhoneNumber: ""
       },
       operate: {
         editDisabled: true,
@@ -159,7 +174,7 @@ export default {
   },
   methods: {
     getList(){
-      axios.get(getRoomListUrl(this.pagination.currentPage, this.pagination.pageSize, this.formData))
+      axios.get(getGuestListUrl(this.pagination.currentPage, this.pagination.pageSize, this.formData))
           .then((response) => {
             this.tableData = response.data.data.data
             if(this.tableData.length === 0 && this.pagination.currentPage > 1){
