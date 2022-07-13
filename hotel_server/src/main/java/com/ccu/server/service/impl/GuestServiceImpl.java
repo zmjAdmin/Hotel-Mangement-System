@@ -92,20 +92,20 @@ public class GuestServiceImpl implements GuestService {
         return num1 + num2;
     }
 
-    /**
-     * 批量插入数据
-     *
-     * @param guestList 实体列表
-     * @return 受影响行数
-     */
-    @Override
-    public Integer batchInsert(List<Guest> guestList) {
-        int num = 0;
-        for (Guest guest : guestList) {
-            num += this.insert(guest);
-        }
-        return num;
-    }
+//    /**
+//     * 批量插入数据
+//     *
+//     * @param guestList 实体列表
+//     * @return 受影响行数
+//     */
+//    @Override
+//    public Integer batchInsert(List<Guest> guestList) {
+//        int num = 0;
+//        for (Guest guest : guestList) {
+//            num += this.insert(guest);
+//        }
+//        return num;
+//    }
 
     /**
      * 通过主键修改数据

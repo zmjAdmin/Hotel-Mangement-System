@@ -41,13 +41,13 @@ public interface GuestService {
      */
     Integer insert(Guest guest);
 
-    /**
-     * 批量插入数据
-     *
-     * @param guestList 实体列表
-     * @return 受影响行数
-     */
-    Integer batchInsert(List<Guest> guestList);
+//    /**
+//     * 批量插入数据
+//     *
+//     * @param guestList 实体列表
+//     * @return 受影响行数
+//     */
+//    Integer batchInsert(List<Guest> guestList);
 
     /**
      * 修改数据
